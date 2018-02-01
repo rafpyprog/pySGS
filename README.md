@@ -1,4 +1,4 @@
-![SGS Wrapper](https://commons.wikimedia.org/wiki/File:QtiPlot_logo.png)
+![](https://raw.githubusercontent.com/rafpyprog/sgs/master/icon.png)
 SGS
 ===
 
