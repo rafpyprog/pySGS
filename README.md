@@ -2,7 +2,7 @@
 SGS
 ===
 
-Este pacote funciona com um wrapper para o webservice do
+Este pacote funciona como um wrapper para o webservice do
 Sistema Gerenciador de Séries Temporais (SGS) do Banco Central do Brasil, facilitando o trabalho de desenvolvedores e pesquisadores que necessitam de séries temporais de indicadores financeiros.
 
 Instalação
