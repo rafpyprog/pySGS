@@ -1,5 +1,7 @@
+![SGS Wrapper](https://commons.wikimedia.org/wiki/File:QtiPlot_logo.png)
 SGS
 ===
+
 Este pacote funciona com um wrapper para o webservice do
 Sistema Gerenciador de Séries Temporais (SGS) do Banco Central do Brasil, facilitando o trabalho de desenvolvedores e pesquisadores que necessitam de séries temporais de indicadores financeiros.
 
