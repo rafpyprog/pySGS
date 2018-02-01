@@ -5,8 +5,15 @@ SGS
 Este pacote funciona com um wrapper para o webservice do
 Sistema Gerenciador de Séries Temporais (SGS) do Banco Central do Brasil, facilitando o trabalho de desenvolvedores e pesquisadores que necessitam de séries temporais de indicadores financeiros.
 
+Instalação
+==========
+```
+pip install sgs
+```
+
 Tutorial
 ========
+
 
 Para obter a série temporal de um indicador, instancie a classe SGS, utilizando como parâmetros o código da série desejada e a data de ínicio e fim. Será retornado um pandas.DataFrame, com a coluna do tipo data devidamente formatadas no formato datetime e os valores da série.
 
