@@ -43,7 +43,7 @@ class SGS():
         ''' Carrega e preeche o template do corpo do request ao webservice
             do SGS '''
         path, filename = os.path.split(tpl_path)
-        template = jinja2.Environment(loader=BaseLoader).from_string(tpl)
+        template = Environment(loader=BaseLoader).from_string(tpl)
         return template
 
     def requests_wssgs(self, method, params):
@@ -97,7 +97,3 @@ class SGS():
         if 'BLOQUEADO' in df.columns:
             del df['BLOQUEADO']
         return df
-
-sgs = SGS()
-sgs.get_valores_series(1373, '01/01/2001', '01/02/2018')
-s
