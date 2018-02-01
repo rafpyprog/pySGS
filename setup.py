@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
     name = 'sgs',
     packages = ['sgs'],
-    version = '1',  
+    version = '1.2',  
     description = 'Python wrapper para o webservice do SGS - Sistema Gerenciador de Series Temporais do Banco Central do Brasil.',
     author = 'Rafael Alves Ribeiro',
     author_email = 'rafael.alves.ribeiro@gmail.com',
