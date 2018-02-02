@@ -11,6 +11,7 @@ setup(
     install_requires = [
         'jinja2>=2.9.5',
         'lxml>=4',
+        'numpy>=1.1'
         'pandas>=0.22.0',
         'requests>=2.18.4'
     ],

@@ -78,15 +78,16 @@ class SGS():
             msg = ('Valores não encontrados.'
                    ' Verifique o código da série e a data de vigência.')
             raise ValueError(msg)
+
         root = etree.fromstring(wssg_response)
         xml_return = root.xpath('// getValoresSeriesXMLReturn')[0]
         serie = etree.fromstring(xml_return.text.encode('ISO-8859-1'))[0]
         colum_names = [i.tag for i in serie[0]]
         serie_temporal = []
+
         for item in serie:
             values = []
             for coluna in item:
-                print(coluna.text)
                 val = coluna.text
                 if coluna.tag.startswith('DATA'):
                     val = parse_data(coluna.text)
@@ -98,6 +99,7 @@ class SGS():
                 values.append(val)
             serie_temporal.append(values)
         df = pd.DataFrame(serie_temporal, columns=colum_names)
+
         for col in df:
             if col.startswith('DATA'):
                 df[col] = pd.to_datetime(df[col], dayfirst=True)
