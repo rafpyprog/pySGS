@@ -1,4 +1,4 @@
-![](https://raw.githubusercontent.com/rafpyprog/sgs/master/icon.png)
+.. image:: https://raw.githubusercontent.com/rafpyprog/sgs/master/icon.png
 pySGS
 =====
 
@@ -7,9 +7,11 @@ Sistema Gerenciador de Séries Temporais (SGS) do Banco Central do Brasil, facil
 
 Instalação
 ==========
-```
+
+.. code-block:: bash
+
 pip install sgs
-```
+
 
 Tutorial
 ========
