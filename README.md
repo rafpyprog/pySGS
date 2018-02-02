@@ -1,6 +1,6 @@
 ![](https://raw.githubusercontent.com/rafpyprog/sgs/master/icon.png)
-SGS
-===
+pySGS
+=====
 
 Este pacote funciona como um wrapper para o webservice do
 Sistema Gerenciador de Séries Temporais (SGS) do Banco Central do Brasil, facilitando o trabalho de desenvolvedores e pesquisadores que necessitam de séries temporais de indicadores financeiros.
