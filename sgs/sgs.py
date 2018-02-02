@@ -2,6 +2,7 @@ import os
 
 from jinja2 import BaseLoader, Environment
 from lxml import etree
+import numpy as np
 import pandas as pd
 import requests
 
@@ -85,9 +86,15 @@ class SGS():
         for item in serie:
             values = []
             for coluna in item:
+                print(coluna.text)
                 val = coluna.text
                 if coluna.tag.startswith('DATA'):
                     val = parse_data(coluna.text)
+                if coluna.tag.startswith('VALOR'):
+                    try:
+                        val = float(val)
+                    except TypeError:  # trata valores nulos
+                        val = np.nan
                 values.append(val)
             serie_temporal.append(values)
         df = pd.DataFrame(serie_temporal, columns=colum_names)
