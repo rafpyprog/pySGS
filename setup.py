@@ -2,7 +2,7 @@ from distutils.core import setup
 
 from sgs.__init__ import __version__
 
-with open('README.rst', 'r') as f:
+with open('README.rst', 'r', encoding='utf-8') as f:
     readme = f.read()
 
 setup(
