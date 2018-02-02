@@ -75,9 +75,10 @@ O módulo auxiliar 'series' possui o código de alguns indicadores mais comuns:
 
     >>> # Indicadores disponíveis
     >>> dir(series)[-8]
-    ['BOOVESPA_VALOR_LISTADAS', 'BOVESPA_INDICE', 'BOVESPA_QTD_LISTADAS', 'BOVESPA_VOLUME', 'CDI', 'DOWN_JONES', 'IGP10', 'IGPDI', 'INCC
-    ', 'IPA', 'IPC', 'IPCA', 'NASDAQ', 'OURO', 'PIB_RS_CORRENTE', 'PIB_VAR_PERC', 'POUPANCA_I', 'POUPANCA_II', 'SELIC', 'SELIC_ACUM_MES'
-    , 'SELIC_META', 'TBF', 'TJLP', 'TR']
+    ['BOVESPA_VALOR_LISTADAS', 'BOVESPA_INDICE', 'BOVESPA_QTD_LISTADAS', 'BOVESPA_VOLUME', 'CDI',
+     'DOWN_JONES', 'IGP10', 'IGPDI', 'INCC', 'IPA', 'IPC', 'IPCA', 'NASDAQ', 'OURO', 'PIB_RS_CORRENTE',
+     'PIB_VAR_PERC', 'POUPANCA_I', 'POUPANCA_II', 'SELIC', 'SELIC_ACUM_MES', 'SELIC_META', 'TBF',
+     'TJLP', 'TR']
 
 
 Para consultar código das séries disponíveis e outras informações, visite o site do SGS: https://www3.bcb.gov.br/sgspub/
