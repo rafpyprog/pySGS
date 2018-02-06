@@ -3,7 +3,6 @@ README.rst
 setup.cfg
 setup.py
 sgs/__init__.py
-sgs/__version__.py
 sgs/series.py
 sgs/sgs.py
 sgs.egg-info/PKG-INFO
