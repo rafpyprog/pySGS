@@ -1,6 +1,7 @@
 from distutils.core import setup
+from setuptools import setup, find_packages
 
-from sgs.__init__ import __version__
+from sgs.__version__ import __version__
 
 with open('README.rst', 'r', encoding='utf-8') as f:
     readme = f.read()
@@ -11,7 +12,7 @@ setup(
     install_requires = [
         'jinja2>=2.9.5',
         'lxml>=4',
-        'numpy>=1.1'
+        'numpy>= 1.1'
         'pandas>=0.22.0',
         'requests>=2.18.4'
     ],

@@ -1,0 +1,13 @@
+MANIFEST.in
+README.rst
+setup.cfg
+setup.py
+sgs/__init__.py
+sgs/__version__.py
+sgs/series.py
+sgs/sgs.py
+sgs.egg-info/PKG-INFO
+sgs.egg-info/SOURCES.txt
+sgs.egg-info/dependency_links.txt
+sgs.egg-info/requires.txt
+sgs.egg-info/top_level.txt
