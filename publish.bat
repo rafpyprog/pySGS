@@ -1,3 +1,4 @@
+echo OFF
 echo 'Publicando versão %2 do pacote'
 echo '=============================='
 echo __version__ = '%2' > .\sgs\__version__.py
