@@ -1,7 +1,7 @@
 from distutils.core import setup
 from setuptools import setup, find_packages
 
-from sgs.__version__ import __version__
+__version__ = '1.27.4'
 
 with open('README.rst', 'r', encoding='utf-8') as f:
     readme = f.read()

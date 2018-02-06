@@ -6,7 +6,6 @@ REM   * número da versão
 echo OFF
 
 echo - Atualizando versão para %2
-echo __version__ = '%2' > .\sgs\__version__.py
 
 echo - Atualizando repositório do Github
 git add .
