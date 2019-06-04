@@ -102,7 +102,8 @@ class SGS():
 
         for col in df:
             if col.startswith('DATA'):
-                df[col] = pd.to_datetime(df[col], dayfirst=True)
+                df.index = pd.to_datetime(df[col], dayfirst=True)
+                df = df.drop(['DATA], axis=1)
         if 'BLOQUEADO' in df.columns:
             del df['BLOQUEADO']
         return df
