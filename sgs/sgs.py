@@ -6,12 +6,13 @@ import numpy as np
 import pandas as pd
 import requests
 
-# Template XML para request ao Webservice do SGS
-soapenv = 'http://schemas.xmlsoap.org/soap/envelope/'
-xsd = 'http://www.w3.org/2001/XMLSchema'
-xsi = 'http://www.w3.org/2001/XMLSchema-instance'
 
-tpl = '''<?xml version="1.0" encoding="utf-8"?>
+# Template XML para request ao Webservice do SGS
+soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
+xsd = "http://www.w3.org/2001/XMLSchema"
+xsi = "http://www.w3.org/2001/XMLSchema-instance"
+
+tpl = """<?xml version="1.0" encoding="utf-8"?>
        <soapenv:Envelope xmlns:soapenv="{}" xmlns:xsd="{}" xmlns:xsi="{}">
            <soapenv:Body>
                <{{{{ method }}}} xmlns="https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS">
@@ -24,41 +25,44 @@ tpl = '''<?xml version="1.0" encoding="utf-8"?>
                    {{% endfor %}}
               </{{{{ method }}}}>
            </soapenv:Body>
-       </soapenv:Envelope>'''.format(soapenv, xsd, xsi)
+       </soapenv:Envelope>""".format(
+    soapenv, xsd, xsi
+)
 
 
 def parse_data(data):
-    dmy = data.split('/')
+    dmy = data.split("/")
     fill = [2, 2, 4]
-    dt = '/'.join([i.zfill(fill[n]) for n, i in enumerate(dmy)])
+    dt = "/".join([i.zfill(fill[n]) for n, i in enumerate(dmy)])
     return dt
 
 
-class SGS():
-    ''' Consulta séries temporais no SGS - Sistema Gerenciador de Séries
-        Temporais do Banco Central do Brasil '''
+class SGS:
+    """ Consulta séries temporais no SGS - Sistema Gerenciador de Séries
+        Temporais do Banco Central do Brasil """
+
     def __init__(self):
         pass
 
-    def load_template(self, tpl_path='body_template.j2'):
-        ''' Carrega e preeche o template do corpo do request ao webservice
-            do SGS '''
+    def load_template(self, tpl_path="body_template.j2"):
+        """ Carrega e preeche o template do corpo do request ao webservice
+            do SGS """
         path, filename = os.path.split(tpl_path)
         template = Environment(loader=BaseLoader).from_string(tpl)
         return template
 
     def requests_wssgs(self, method, params):
-        ''' Envia o request ao webservise do SGS '''
-        URL_WEBSERVICE = 'https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS'
+        """ Envia o request ao webservise do SGS """
+        URL_WEBSERVICE = "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS"
         template = self.load_template()
         body = template.render(method=method, params=params)
-        url = '{}?method={}'.format(URL_WEBSERVICE, method)
-        headers = {'soapAction': '{}/{}'.format(URL_WEBSERVICE, method)}
+        url = "{}?method={}".format(URL_WEBSERVICE, method)
+        headers = {"soapAction": "{}/{}".format(URL_WEBSERVICE, method)}
         response = requests.post(url, headers=headers, data=body).content
         return response
 
     def get_valores_series(self, codigo_serie, data_inicio, data_fim):
-        ''' Solicita uma série temporal ao SGS.
+        """ Solicita uma série temporal ao SGS.
 
             Parâmetros:
             * codigo_serie(int): código da série
@@ -66,22 +70,26 @@ class SGS():
             * data_fim(str): data de fim no format dd/mm/yyyy
 
             Retorna dataframe contendo os valores da série temporal.
-        '''
+        """
 
-        method = 'getValoresSeriesXML'
-        params = {'codigosSeries': codigo_serie,
-                  'dataInicio': data_inicio,
-                  'dataFim': data_fim}
+        method = "getValoresSeriesXML"
+        params = {
+            "codigosSeries": codigo_serie,
+            "dataInicio": data_inicio,
+            "dataFim": data_fim,
+        }
 
         wssg_response = self.requests_wssgs(method, params)
-        if 'Value(s) not found' in wssg_response.decode():
-            msg = ('Valores não encontrados.'
-                   ' Verifique o código da série e a data de vigência.')
+        if "Value(s) not found" in wssg_response.decode():
+            msg = (
+                "Valores não encontrados."
+                " Verifique o código da série e a data de vigência."
+            )
             raise ValueError(msg)
 
         root = etree.fromstring(wssg_response)
-        xml_return = root.xpath('// getValoresSeriesXMLReturn')[0]
-        serie = etree.fromstring(xml_return.text.encode('ISO-8859-1'))[0]
+        xml_return = root.xpath("// getValoresSeriesXMLReturn")[0]
+        serie = etree.fromstring(xml_return.text.encode("ISO-8859-1"))[0]
         colum_names = [i.tag for i in serie[0]]
         serie_temporal = []
 
@@ -89,9 +97,9 @@ class SGS():
             values = []
             for coluna in item:
                 val = coluna.text
-                if coluna.tag.startswith('DATA'):
+                if coluna.tag.startswith("DATA"):
                     val = parse_data(coluna.text)
-                if coluna.tag.startswith('VALOR'):
+                if coluna.tag.startswith("VALOR"):
                     try:
                         val = float(val)
                     except TypeError:  # trata valores nulos
@@ -101,9 +109,9 @@ class SGS():
         df = pd.DataFrame(serie_temporal, columns=codigo_serie)
 
         for col in df:
-            if col.startswith('DATA'):
+            if col.startswith("DATA"):
                 df.index = pd.to_datetime(df[col], dayfirst=True)
-                df = df.drop(['DATA], axis=1)
-        if 'BLOQUEADO' in df.columns:
-            del df['BLOQUEADO']
+                df = df.drop("DATA", axis=1)
+        if "BLOQUEADO" in df.columns:
+            del df["BLOQUEADO"]
         return df

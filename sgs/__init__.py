@@ -1,4 +1,3 @@
+from .__version__ import __version__
 from .sgs import SGS
 from . import series
-
-__version__ = '1.27.4'
