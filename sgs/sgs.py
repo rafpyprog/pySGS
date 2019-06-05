@@ -46,8 +46,7 @@ class SGS:
 
     def load_template(self, tpl_path="body_template.j2"):
         """ Carrega e preeche o template do corpo do request ao webservice
-            do SGS """
-        path, filename = os.path.split(tpl_path)
+            do SGS """        
         template = Environment(loader=BaseLoader).from_string(tpl)
         return template
 
@@ -57,9 +56,11 @@ class SGS:
         template = self.load_template()
         body = template.render(method=method, params=params)
         url = "{}?method={}".format(URL_WEBSERVICE, method)
-        headers = {"soapAction": "{}/{}".format(URL_WEBSERVICE, method)}
-        response = requests.post(url, headers=headers, data=body).content
-        return response
+        headers = {"soapAction": "{}/{}".format(URL_WEBSERVICE, method)}        
+        response = requests.post(url, headers=headers, data=body)
+        response.raise_for_status()
+        xml = response.content
+        return xml
 
     def get_valores_series(self, codigo_serie, data_inicio, data_fim):
         """ Solicita uma série temporal ao SGS.
@@ -91,7 +92,7 @@ class SGS:
         xml_return = root.xpath("// getValoresSeriesXMLReturn")[0]
         serie = etree.fromstring(xml_return.text.encode("ISO-8859-1"))[0]
         colum_names = [i.tag for i in serie[0]]
-        serie_temporal = []
+        serie_temporal = []        
 
         for item in serie:
             values = []
@@ -106,7 +107,9 @@ class SGS:
                         val = np.nan
                 values.append(val)
             serie_temporal.append(values)
-        df = pd.DataFrame(serie_temporal, columns=codigo_serie)
+        print(serie_temporal)
+        
+        df = pd.DataFrame(serie_temporal, columns=colum_names)        
 
         for col in df:
             if col.startswith("DATA"):
@@ -114,4 +117,7 @@ class SGS:
                 df = df.drop("DATA", axis=1)
         if "BLOQUEADO" in df.columns:
             del df["BLOQUEADO"]
+        
+        df = df.rename(columns={'VALOR': codigo_serie})
+        
         return df
