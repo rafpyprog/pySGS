@@ -98,7 +98,7 @@ class SGS():
                         val = np.nan
                 values.append(val)
             serie_temporal.append(values)
-        df = pd.DataFrame(serie_temporal, columns=colum_names)
+        df = pd.DataFrame(serie_temporal, columns=codigo_serie)
 
         for col in df:
             if col.startswith('DATA'):
