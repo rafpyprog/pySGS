@@ -19,19 +19,14 @@ def test_requests_wssgs():
         }
 
     response = sgs.requests_wssgs(method=method, params=params)
-    assert isinstance(response, bytes)    
+    assert isinstance(response, bytes)
     assert response.startswith(b'<?xml')
 
 
 def test_get_valor_serie():
-    sgs = SGS()    
+    sgs = SGS()
     serie = 12
     df = sgs.get_valores_series(serie, '01/01/2018', '31/01/2018')
     assert isinstance(df, pd.DataFrame)
     assert list(df.columns) == [serie]
     assert df.shape == (22, 1)
-    
-
-
-
-  	

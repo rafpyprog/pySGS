@@ -1,36 +1,36 @@
 import os
 
-from jinja2 import BaseLoader, Environment
-from lxml import etree
+import defusedxml.cElementTree as ET
+from jinja2 import BaseLoader, Environment, select_autoescape
 import numpy as np
 import pandas as pd
 import requests
 
 
-# Template XML para request ao Webservice do SGS
-soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
-xsd = "http://www.w3.org/2001/XMLSchema"
-xsi = "http://www.w3.org/2001/XMLSchema-instance"
+# jinja template for webservice requests
+template = """
+    <?xml version="1.0" encoding="utf-8"?>
+      <soapenv:Envelope
+        xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <soapenv:Body>
+          <{{ method }}
+            xmlns="https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS">
+            {% for p in params %}
+              {% if p == "codigosSeries" %}
+                <{{ p }}><item>{{ params[p] }}</item></{{ p }}>
+              {% else %}
+                <{{ p }}>{{ params[p] }}</{{ p }}>
+              {% endif %}
+            {% endfor %}
+          </{{ method }}>
+        </soapenv:Body>
+      </soapenv:Envelope>""".strip()
 
-tpl = """<?xml version="1.0" encoding="utf-8"?>
-       <soapenv:Envelope xmlns:soapenv="{}" xmlns:xsd="{}" xmlns:xsi="{}">
-           <soapenv:Body>
-               <{{{{ method }}}} xmlns="https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS">
-                   {{% for p in params %}}
-                       {{% if p == "codigosSeries" %}}
-                           <{{{{ p }}}}><item>{{{{ params[p] }}}}</item></{{{{ p }}}}>
-                       {{% else %}}
-                           <{{{{ p }}}}>{{{{ params[p] }}}}</{{{{ p }}}}>
-                       {{% endif %}}
-                   {{% endfor %}}
-              </{{{{ method }}}}>
-           </soapenv:Body>
-       </soapenv:Envelope>""".format(
-    soapenv, xsd, xsi
-)
 
-
-def parse_data(data):
+def parse_data(data: str) -> str:
+    """ extrai a data e formata retornando no formato dd/mm/aaaa """
     dmy = data.split("/")
     fill = [2, 2, 4]
     dt = "/".join([i.zfill(fill[n]) for n, i in enumerate(dmy)])
@@ -41,28 +41,32 @@ class SGS:
     """ Consulta séries temporais no SGS - Sistema Gerenciador de Séries
         Temporais do Banco Central do Brasil """
 
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
-    def load_template(self, tpl_path="body_template.j2"):
+    def load_template(self):
         """ Carrega e preeche o template do corpo do request ao webservice
-            do SGS """        
-        template = Environment(loader=BaseLoader).from_string(tpl)
-        return template
+            do SGS """
 
-    def requests_wssgs(self, method, params):
+        autoescape = select_autoescape(default_for_string=True, default=True)
+        loader = Environment(autoescape=True, loader=BaseLoader)
+        return loader.from_string(template)
+
+    def requests_wssgs(self, method: str, params: dict) -> bytes:
         """ Envia o request ao webservise do SGS """
         URL_WEBSERVICE = "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS"
         template = self.load_template()
         body = template.render(method=method, params=params)
         url = "{}?method={}".format(URL_WEBSERVICE, method)
-        headers = {"soapAction": "{}/{}".format(URL_WEBSERVICE, method)}        
+        headers = {"soapAction": "{}/{}".format(URL_WEBSERVICE, method)}
         response = requests.post(url, headers=headers, data=body)
         response.raise_for_status()
         xml = response.content
         return xml
 
-    def get_valores_series(self, codigo_serie, data_inicio, data_fim):
+    def get_valores_series(
+        self, codigo_serie: str, data_inicio: str, data_fim: str
+    ) -> pd.DataFrame:
         """ Solicita uma série temporal ao SGS.
 
             Parâmetros:
@@ -88,11 +92,11 @@ class SGS:
             )
             raise ValueError(msg)
 
-        root = etree.fromstring(wssg_response)
-        xml_return = root.xpath("// getValoresSeriesXMLReturn")[0]
-        serie = etree.fromstring(xml_return.text.encode("ISO-8859-1"))[0]
+        tree = ET.fromstring(wssg_response)
+        xml_return = list(tree.iter(tag="getValoresSeriesXMLReturn"))[0]
+        serie = ET.fromstring(xml_return.text.encode("ISO-8859-1"))[0]
         colum_names = [i.tag for i in serie[0]]
-        serie_temporal = []        
+        serie_temporal = []
 
         for item in serie:
             values = []
@@ -108,8 +112,8 @@ class SGS:
                 values.append(val)
             serie_temporal.append(values)
         print(serie_temporal)
-        
-        df = pd.DataFrame(serie_temporal, columns=colum_names)        
+
+        df = pd.DataFrame(serie_temporal, columns=colum_names)
 
         for col in df:
             if col.startswith("DATA"):
@@ -117,7 +121,7 @@ class SGS:
                 df = df.drop("DATA", axis=1)
         if "BLOQUEADO" in df.columns:
             del df["BLOQUEADO"]
-        
-        df = df.rename(columns={'VALOR': codigo_serie})
-        
+
+        df = df.rename(columns={"VALOR": codigo_serie})
+
         return df

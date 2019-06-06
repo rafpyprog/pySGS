@@ -6,23 +6,38 @@ __version__ = '1.28.0'
 with open('README.rst', 'r', encoding='utf-8') as f:
     readme = f.read()
 
+
+requirements = [
+    'jinja2>=2.9.5',
+    'lxml>=4',
+    'pandas>=0.22.0',
+    'requests>=2.18.4'
+]
+
+dev_requirements = [
+    "bandit==1.6.0",
+    "black==19.3b",
+    "pytest==4.6.2",
+    "pytest-cov==2.7.1",
+    "pytest-pep8==1.0.6",
+]
+
 setup(
-    name = 'sgs',
-    packages = ['sgs'],
-    install_requires = [
-        'jinja2>=2.9.5',
-        'lxml>=4',
-        'numpy>= 1.1'
-        'pandas>=0.22.0',
-        'requests>=2.18.4'
-    ],
-    version = __version__,
-    description = 'Python wrapper para o webservice do SGS - Sistema Gerenciador de Series Temporais do Banco Central do Brasil.',
+    name='sgs',
+    packages=['sgs'],
+    install_requires=requirements,
+    extras_require={
+        'dev': dev_requirements
+    },
+    version=__version__,
+    description=('Python wrapper para o webservice do SGS - '
+                 'Sistema Gerenciador de Series Temporais do '
+                 'Banco Central do Brasil.'),
     long_description=readme,
-    author = 'Rafael Alves Ribeiro',
-    author_email = 'rafael.alves.ribeiro@gmail.com',
-    url = 'https://github.com/rafpyprog/pySGS',
-    classifiers = [
+    author='Rafael Alves Ribeiro',
+    author_email='rafael.alves.ribeiro@gmail.com',
+    url='https://github.com/rafpyprog/pySGS',
+    classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
