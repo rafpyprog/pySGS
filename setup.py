@@ -1,7 +1,7 @@
 from distutils.core import setup
 from setuptools import setup, find_packages
 
-__version__ = '1.3.1'
+__version__ = '1.28.0'
 
 with open('README.rst', 'r', encoding='utf-8') as f:
     readme = f.read()
@@ -24,15 +24,11 @@ setup(
     url = 'https://github.com/rafpyprog/pySGS',
     classifiers = [
         'Development Status :: 4 - Beta',
-
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
-
         'License :: OSI Approved :: MIT License',
-
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
-
         'Topic :: Scientific/Engineering :: Information Analysis',
     ],
 )
