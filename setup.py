@@ -17,7 +17,6 @@ requirements = [
 
 dev_requirements = [
     "bandit==1.6.0",
-    "black==19.3b",
     "pytest==4.6.2",
     "pytest-cov==2.7.1",
     "pytest-pep8==1.0.6",
@@ -26,6 +25,7 @@ dev_requirements = [
 setup(
     name='sgs',
     packages=['sgs'],
+    python_requires=">=3.5",
     install_requires=requirements,
     extras_require={
         'dev': dev_requirements
@@ -34,6 +34,7 @@ setup(
     description=('Python wrapper para o webservice do SGS - '
                  'Sistema Gerenciador de Series Temporais do '
                  'Banco Central do Brasil.'),
+    license="MIT",
     long_description=readme,
     author='Rafael Alves Ribeiro',
     author_email='rafael.alves.ribeiro@gmail.com',

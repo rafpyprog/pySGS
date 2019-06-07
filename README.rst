@@ -1,3 +1,7 @@
+.. image:: https://travis-ci.org/rafpyprog/pySGS.svg?branch=master
+    :target: https://travis-ci.org/rafpyprog/pySGS
+
+
 |pic 1| **pySGS**
 =================
 

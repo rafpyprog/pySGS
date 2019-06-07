@@ -1,9 +1,11 @@
 __pycache__/
 .cache/
+.vscode/
 dist/
 build/
 sgs.egg-info/
 env/
+
 
 *.bat
 *.pyc
