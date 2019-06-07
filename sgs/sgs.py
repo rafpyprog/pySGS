@@ -1,3 +1,4 @@
+from collections import OrderedDict
 import os
 
 import defusedxml.cElementTree as ET
@@ -78,11 +79,14 @@ class SGS:
         """
 
         method = "getValoresSeriesXML"
-        params = {
-            "codigosSeries": codigo_serie,
-            "dataInicio": data_inicio,
-            "dataFim": data_fim,
-        }
+
+        params = OrderedDict(
+            [
+                ("codigosSeries", codigo_serie),
+                ("dataInicio", data_inicio),
+                ("dataFim", data_fim),
+            ]
+        )
 
         wssg_response = self.requests_wssgs(method, params)
         if "Value(s) not found" in wssg_response.decode():

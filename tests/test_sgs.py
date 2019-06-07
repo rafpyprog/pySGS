@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 import pandas as pd
 import pytest
 
@@ -12,11 +14,11 @@ def test_sgs_instance():
 def test_requests_wssgs():
     sgs = SGS()
     method = "getValoresSeriesXML"
-    params = {
-            "codigosSeries": 12,
-            "dataInicio": '01/01/2016',
-            "dataFim": '31/12/2016',
-        }
+    params = OrderedDict([
+        ("codigosSeries",  12),
+        ("dataInicio", "01/01/2018"),
+        ("dataFim", "01/02/2018"),
+    ])
 
     response = sgs.requests_wssgs(method=method, params=params)
     assert isinstance(response, bytes)
