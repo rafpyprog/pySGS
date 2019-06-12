@@ -1,4 +1,3 @@
-from distutils.core import setup
 from setuptools import setup, find_packages
 
 __version__ = '1.29.0'
