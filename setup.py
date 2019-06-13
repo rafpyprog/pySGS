@@ -7,11 +7,7 @@ with open('README.rst', 'r', encoding='utf-8') as f:
 
 
 requirements = [
-    'defusedxml>=0.6.0',
-    'jinja2>=2.9.5',
-    'lxml>=4',
     'pandas>=0.22.0',
-    'requests>=2.18.4'
 ]
 
 dev_requirements = [
