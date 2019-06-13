@@ -23,9 +23,11 @@ class SGS:
             parse_dates=True,
             dayfirst=True,
             sep=";",
-            names=["data", codigo_serie],
-            header=0,
         )
+        df = df.rename(columns={'valor': codigo_serie})
+        if 'datafim' in df.columns:
+            del df['datafim']
+
         del df.index.name
         return df
 
