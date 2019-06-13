@@ -19,6 +19,7 @@ dev_requirements = [
     "pytest==4.6.2",
     "pytest-cov==2.7.1",
     "pytest-pep8==1.0.6",
+    "pytest-mypy==0.3.2"
 ]
 
 setup(
