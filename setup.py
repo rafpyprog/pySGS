@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-__version__ = '1.30.0'
+__version__ = '1.30.2'
 
 with open('README.rst', 'r', encoding='utf-8') as f:
     readme = f.read()
