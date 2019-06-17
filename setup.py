@@ -7,7 +7,8 @@ with open('README.rst', 'r', encoding='utf-8') as f:
 
 
 requirements = [
-    'pandas>=0.22.0',
+    'pandas>=0.24.2',
+    'requests>=2.22.0',
 ]
 
 dev_requirements = [
