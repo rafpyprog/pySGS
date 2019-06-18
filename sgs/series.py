@@ -1,3 +1,6 @@
+"""
+Sample Time Series Codes
+"""
 TBF = 253  # Taxa Básica Financeira
 TJLP = 256  # Taxa de juros - TJLP
 TR = 226  # Taxa Referencial

@@ -11,31 +11,35 @@ class SGS:
         pass
 
     def read_from_api(
-        self, codigo_serie: int, data_inicio: str, data_fim: str
+            self,
+            codigo_serie: int,
+            data_inicio: str,
+            data_fim: str
     ) -> pd.DataFrame:
+        """ Read data in csv format from the SGS API """
         url = (
             "http://api.bcb.gov.br/dados/serie/bcdata.sgs.{}"
             "/dados?formato=csv&dataInicial={}&dataFinal={}"
         )
-        df = pd.read_csv(
+        serie = pd.read_csv(
             url.format(codigo_serie, data_inicio, data_fim),
             index_col="data",
             parse_dates=True,
             dayfirst=True,
             sep=";",
         )
-        df = df.rename(columns={'valor': codigo_serie})
-        if 'datafim' in df.columns:
-            del df['datafim']
+        serie = serie.rename(columns={'valor': codigo_serie})
+        if 'datafim' in serie.columns:
+            del serie['datafim']
 
-        del df.index.name
-        return df
+        del serie.index.name
+        return serie
 
     def get_valores_series(
-        self,
-        codigo_serie: Union[int, List],
-        data_inicio: str,
-        data_fim: str
+            self,
+            codigo_serie: Union[int, List],
+            data_inicio: str,
+            data_fim: str
     ) -> pd.DataFrame:
         """ Solicita uma série temporal ao SGS.
 
@@ -55,7 +59,7 @@ class SGS:
 
         series = []
         for cod in codigos:
-            df = self.read_from_api(cod, data_inicio, data_fim)
-            series.append(df)
+            serie = self.read_from_api(cod, data_inicio, data_fim)
+            series.append(serie)
 
         return pd.concat(series, axis=1)

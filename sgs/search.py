@@ -4,6 +4,8 @@ from typing import Union, Optional
 import requests
 import pandas as pd
 
+from .common import to_datetime
+
 
 @unique
 class Language(Enum):
@@ -64,12 +66,14 @@ def init_search_session(language: str) -> requests.Session:
 def parse_search_response(response, language: str) -> Optional[list]:
     HTML = response.text
     cols = Columns[language].value
+    START = cols["start"]
+    LAST = cols["last"]
 
     try:
         df = pd.read_html(HTML, attrs={"id": "tabelaSeries"}, flavor='lxml')[0]
         print(df.columns)
-        df[cols['start']] = pd.to_datetime(df[cols["start"]], dayfirst=True)
-        df[cols["last"]] = pd.to_datetime(df[cols["last"]], dayfirst=True)
+        df[START] = df[START].map(lambda x: to_datetime(x, language))
+        df[LAST] = df[LAST].map(lambda x: to_datetime(x, language))
         col_names = {
             cols["code"]: "code",
             cols["name"]: "name",

@@ -2,6 +2,7 @@ import pytest
 import requests
 
 from sgs.search import *
+from sgs.common import to_datetime
 
 
 @pytest.mark.parametrize("language", ["en", "pt"])
@@ -10,17 +11,68 @@ def test_init_search_session(language):
     assert isinstance(session, requests.Session)
 
 
+def test_search_by_code_english():
+    code = 4
+    results = search_serie(code, Language.en.value)
+    metadata = results[0]
+    assert metadata['name'] == "BM&F Gold - gramme"
+    assert metadata['first_value'] == to_datetime("29/12/1989", "en")
+    assert metadata['frequency'] == "D"
+
+
+def test_search_by_code_portuguese():
+    code = 4
+    results = search_serie(code, Language.pt.value)
+    metadata = results[0]
+    assert metadata['name'] == "Ouro BM&F - grama"
+    assert metadata['first_value'] == to_datetime("29/12/1989", "pt")
+    assert metadata['frequency'] == "D"
+
+
 @pytest.mark.parametrize(
     "query,language,expected",
     [
-        (4, "pt", {"name": "Ouro BM&F - grama"}),
-        (4, "en", {"name": "BM&F Gold - gramme"})
+        (
+            4,
+            "pt",
+            {
+                "name": "Ouro BM&F - grama",
+                "first_value": to_datetime("29/12/1989", "pt"),
+                "freq": "D",
+            },
+        ),
+        (
+            4,
+            "en",
+            {
+                "name": "BM&F Gold - gramme",
+                "first_value": to_datetime("29/12/1989", "en"),
+                "freq": "D",
+            },
+        ),
+        (
+            28209,
+            "pt",
+            {
+                "name": (
+                    "Saldo de títulos de dívida emitidos por "
+                    "empresas e famílias - títulos privados"
+                ),
+                "first_value": to_datetime("01/01/2013", "pt"),
+                "freq": "M",
+            },
+        ),
     ],
 )
 def test_search_by_code(query, language, expected):
     results = search_serie(query, language)
     assert isinstance(results, list)
-    assert results[0]["frequency"] == "D"
-    assert results[0]["name"] == expected["name"]
-    first_value = pd.to_datetime('29/12/1989', dayfirst=True)
-    assert results[0]["first_value"] == first_value
+    results = results[0]
+    assert results["frequency"] == expected["freq"]
+    assert results["name"] == expected["name"]
+    first_value = expected["first_value"]
+    assert results["first_value"] == first_value
+
+
+# TODO: test_search_by_text
+
