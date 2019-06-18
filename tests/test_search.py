@@ -74,5 +74,11 @@ def test_search_by_code(query, language, expected):
     assert results["first_value"] == first_value
 
 
-# TODO: test_search_by_text
+def test_search_by_text():
+    results = search_serie("Ouro BM$F - grama", "pt")
+    assert isinstance(results, list)
+    assert len(results) == 1
 
+    # portuguese query and english language returns None
+    results = search_serie("Ouro BM$F - grama", "en")
+    assert results is None

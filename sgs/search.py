@@ -65,13 +65,17 @@ def init_search_session(language: str) -> requests.Session:
 
 def parse_search_response(response, language: str) -> Optional[list]:
     HTML = response.text
+
+    not_found_msgs = ('No series found', 'Nenhuma série localizada')
+    if any(msg in HTML for msg in not_found_msgs):
+        return None
+
     cols = Columns[language].value
     START = cols["start"]
     LAST = cols["last"]
 
     try:
         df = pd.read_html(HTML, attrs={"id": "tabelaSeries"}, flavor='lxml')[0]
-        print(df.columns)
         df[START] = df[START].map(lambda x: to_datetime(x, language))
         df[LAST] = df[LAST].map(lambda x: to_datetime(x, language))
         col_names = {
