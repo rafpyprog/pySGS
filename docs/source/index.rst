@@ -3,13 +3,21 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to SGS's documentation!
-===============================
+PySGS - Python API to Bacen Time Series Management System (SGS)
+===============================================================
+
+
+The User Guide
+--------------
+
+This part of the documentation, which is mostly prose, begins with some
+background information about PySGS, then focuses on step-by-step
+instructions for getting the most out of PySGS.
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
+   install
    api
    common
    dataframe

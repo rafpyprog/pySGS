@@ -1,4 +1,5 @@
 from enum import Enum, unique
+import functools
 from typing import Union, Optional
 
 import requests
@@ -98,13 +99,14 @@ def parse_search_response(response, language: str) -> Optional[list]:
             "source",
         ]
         df = df[cols]
-    except IndexError:
+    except (IndexError, KeyError):
         return None
     else:
         return df.to_dict(orient="records")
 
 
-def search_serie(query: Union[int, str], language: str) -> Optional[list]:
+@functools.lru_cache(maxsize=32)
+def search_ts(query: Union[int, str], language: str) -> Optional[list]:
     """
     Search for time series on SGS and return metadata about it.
 
@@ -163,3 +165,7 @@ def search_serie(query: Union[int, str], language: str) -> Optional[list]:
     response.raise_for_status()
     results = parse_search_response(response, language)
     return results
+
+
+def get_metadata(ts_code, session):
+    pass

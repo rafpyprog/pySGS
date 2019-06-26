@@ -13,7 +13,7 @@ def test_init_search_session(language):
 
 def test_search_by_code_english():
     code = 4
-    results = search_serie(code, Language.en.value)
+    results = search_ts(code, Language.en.value)
     metadata = results[0]
     assert metadata['name'] == "BM&F Gold - gramme"
     assert metadata['first_value'] == to_datetime("29/12/1989", "en")
@@ -22,7 +22,7 @@ def test_search_by_code_english():
 
 def test_search_by_code_portuguese():
     code = 4
-    results = search_serie(code, Language.pt.value)
+    results = search_ts(code, Language.pt.value)
     metadata = results[0]
     assert metadata['name'] == "Ouro BM&F - grama"
     assert metadata['first_value'] == to_datetime("29/12/1989", "pt")
@@ -65,7 +65,7 @@ def test_search_by_code_portuguese():
     ],
 )
 def test_search_by_code(query, language, expected):
-    results = search_serie(query, language)
+    results = search_ts(query, language)
     assert isinstance(results, list)
     results = results[0]
     assert results["frequency"] == expected["freq"]
@@ -75,10 +75,19 @@ def test_search_by_code(query, language, expected):
 
 
 def test_search_by_text():
-    results = search_serie("Ouro BM$F - grama", "pt")
+    results = search_ts("Ouro BM$F - grama", "pt")
     assert isinstance(results, list)
     assert len(results) == 1
 
     # portuguese query and english language returns None
-    results = search_serie("Ouro BM$F - grama", "en")
+    results = search_ts("Ouro BM$F - grama", "en")
     assert results is None
+
+
+def test_search_by_text_multiple_results():
+    results = search_ts("dolar", "pt")
+    assert isinstance(results, list)
+    result_count = 41
+    assert len(results) == result_count
+    assert results[0]["code"] == 1
+    assert results[-1]["code"] == 21636
