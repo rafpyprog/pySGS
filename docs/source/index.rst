@@ -7,6 +7,16 @@ PySGS - Python API to Bacen Time Series Management System (SGS)
 ===============================================================
 
 
+Introduction
+------------
+This library provides a pure Python interface for the Time Series Management System (SGS) API.
+It works with Python 3.5 and above.
+
+SGS is a service with more than 18,000 time series with economical and financial information.
+This library is intended to make it easier for Python programmers to use this data in projects of
+any kind.
+
+
 The User Guide
 --------------
 
@@ -18,12 +28,17 @@ instructions for getting the most out of PySGS.
    :maxdepth: 2
 
    install
-   api
-   common
-   dataframe
-   metadata
-   search
-   ts
+   quickstart
 
 
+The API Documentation / Guide
+-----------------------------
+
+If you are looking for information on a specific function, class, or method,
+this part of the documentation is for you.
+
+.. toctree::
+   :maxdepth: 2
+
+   developer
 

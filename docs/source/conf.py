@@ -1,21 +1,15 @@
+import os
+import sys
 from typing import List
-
-# Configuration file for the Sphinx documentation builder.
-#
-# This file only contains a selection of the most common options. For a full
-# list see the documentation:
-# http://www.sphinx-doc.org/en/master/config
-
 # -- Path setup --------------------------------------------------------------
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath('..'))
 
+import sgs
 
 # -- Project information -----------------------------------------------------
 
@@ -24,7 +18,8 @@ copyright = '2019, Rafael Alves Ribeiro'
 author = 'Rafael Alves Ribeiro'
 
 # The full version, including alpha/beta/rc tags
-release = '2.0'
+version = sgs.__version__
+release = sgs.__version__
 
 
 # -- General configuration ---------------------------------------------------
@@ -60,7 +55,9 @@ html_theme_options = {
     "show_powered_by": False,
     "github_user": "rafpyprog",
     "github_repo": "pySGS",
-    "github_banner": True,
+    "github_button": True,
+    "github_banner": False,
+    "github_type": "star",
     "show_related": False,
     "note_bg": "#FFF59C",
 }
