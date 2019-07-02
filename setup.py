@@ -9,6 +9,7 @@ with open('README.rst', 'r', encoding='utf-8') as f:
 requirements = [
     'lxml>=4.3.4',
     'pandas>=0.24.2',
+    'retrying>=1.3.3',
     'requests>=2.22.0',
 ]
 

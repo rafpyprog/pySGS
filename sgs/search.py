@@ -3,9 +3,10 @@ import functools
 from typing import Union, Optional
 
 import requests
+from retrying import retry
 import pandas as pd
 
-from .common import to_datetime
+from .common import LRU_CACHE_SIZE, MAX_ATTEMPT_NUMBER, to_datetime
 
 
 @unique
@@ -51,10 +52,10 @@ class Columns(Enum):
 
 def init_search_session(language: str) -> requests.Session:
     """
-    Starts a session on SGS requesting the initial page.
+    Starts a session on SGS and get cookies requesting the initial page.
 
     Parameters
-    ----------
+
     language: str, "en" or "pt"
         Language used for search and results.
     """
@@ -105,22 +106,31 @@ def parse_search_response(response, language: str) -> Optional[list]:
         return df.to_dict(orient="records")
 
 
+@retry(stop_max_attempt_number=MAX_ATTEMPT_NUMBER)
 @functools.lru_cache(maxsize=32)
 def search_ts(query: Union[int, str], language: str) -> Optional[list]:
-    """
-    Search for time series on SGS and return metadata about it.
+    """Search for time series and return metadata about it.
 
-    Parameters
-    ----------
-    query: int or str
-        Time serie code or name for search.
-    language: str, "en" or "pt"
-        Language used for search and results.
+    :param query: code(int) or name(str) used to search for a time serie.
+    :param language: string (en or pt) used in query and return results.
+
+    :return: List of results matching the search query.
+    :rtype: list
+
+    Usage::
+
+        >>> results = sgs.search_ts("gold", language="en")
+        >>> len(results)
+        29
+        >>> results[0]
+        {'code': 4, 'name': 'BM&F Gold - gramme', 'unit': 'c.m.u.',
+        'frequency': 'D', 'first_value': Timestamp('1989-12-29 00:00:00'),
+        'last_value': Timestamp('2019-06-27 00:00:00'), 'source': 'BM&FBOVESPA'}
     """
 
     session = init_search_session(language)
     URL = ("https://www3.bcb.gov.br/sgspub/localizarseries/"
-           "localizarSeries.do?method={}")
+           "localizarSeries.do")
 
     if isinstance(query, int):
         search_method = SearchMethod.code
@@ -132,24 +142,25 @@ def search_ts(query: Union[int, str], language: str) -> Optional[list]:
     url = URL.format(search_method.value)
 
     params = {
+        "method": search_method.value,
         "periodicidade": 0,
-        "codigo": "",
+        "codigo": None,
         "fonte": 341,
-        "texto": "",
-        "hdFiltro": "",
-        "hdOidGrupoSelecionado": "",
-        "hdSeqGrupoSelecionado": "",
-        "hdNomeGrupoSelecionado": "",
+        "texto": None,
+        "hdFiltro": None,
+        "hdOidGrupoSelecionado": None,
+        "hdSeqGrupoSelecionado": None,
+        "hdNomeGrupoSelecionado": None,
         "hdTipoPesquisa": 4,
         "hdTipoOrdenacao": 0,
-        "hdNumPagina": "",
+        "hdNumPagina": None,
         "hdPeriodicidade": "Todas",
-        "hdSeriesMarcadas": "",
-        "hdMarcarTodos": "",
-        "hdFonte": "",
-        "hdOidSerieMetadados": "",
-        "hdNumeracao": "",
-        "hdOidSeriesLocalizadas": "",
+        "hdSeriesMarcadas": None,
+        "hdMarcarTodos": None,
+        "hdFonte": None,
+        "hdOidSerieMetadados": None,
+        "hdNumeracao": None,
+        "hdOidSeriesLocalizadas": None,
         "linkRetorno":
             "/sgspub/consultarvalores/telaCvsSelecionarSeries.paint",
         "linkCriarFiltros": "/sgspub/manterfiltros/telaMfsCriarFiltro.paint",
@@ -163,9 +174,9 @@ def search_ts(query: Union[int, str], language: str) -> Optional[list]:
 
     response = session.post(url, params=params, timeout=10)
     response.raise_for_status()
+
     results = parse_search_response(response, language)
+
+    session.close()
+
     return results
-
-
-def get_metadata(ts_code, session):
-    pass

@@ -6,6 +6,10 @@ import locale
 from typing import Union
 
 
+LRU_CACHE_SIZE = 32
+MAX_ATTEMPT_NUMBER = 5
+
+
 def to_datetime(date_string: str, language: str) -> Union[datetime, str]:
     """ Converts a date string to a datetime object """
     locales = {

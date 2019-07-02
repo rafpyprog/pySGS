@@ -1,6 +1,8 @@
 import os
 import sys
 from typing import List
+
+import sgs
 # -- Path setup --------------------------------------------------------------
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -8,8 +10,6 @@ from typing import List
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 sys.path.insert(0, os.path.abspath('..'))
-
-import sgs
 
 # -- Project information -----------------------------------------------------
 
