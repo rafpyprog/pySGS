@@ -10,3 +10,6 @@ install:
 script:
   - bandit sgs/
   - pytest
+
+after_success:
+- codecov
