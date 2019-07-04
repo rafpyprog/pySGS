@@ -7,6 +7,20 @@ PySGS - Python API to Bacen Time Series Management System (SGS)
 ===============================================================
 
 
+.. image:: https://img.shields.io/pypi/l/pysgs.svg
+    :target: https://pypi.org/project/pysgs/
+
+.. image:: https://img.shields.io/pypi/pyversions/pysgs.svg
+    :target: https://pypi.org/project/pysgs/
+
+.. image:: https://codecov.io/github/pysgs/pysgs/coverage.svg?branch=master
+    :target: https://codecov.io/github/requests/requests
+    :alt: codecov.io
+
+.. image:: https://img.shields.io/badge/Say%20Thanks!-🦉-1EAEDB.svg
+    :target: https://saythanks.io/to/kennethreitz
+
+
 Introduction
 ------------
 This library provides a pure Python interface for the Time Series Management System (SGS) API.

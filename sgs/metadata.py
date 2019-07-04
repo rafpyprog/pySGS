@@ -14,7 +14,7 @@ def metadata(
     :param language: language of the returned metadata.
 
     :return: List of dicts containing time series metadata.
-    :rtype: list
+    :rtype: list_
 
     Usage::
 

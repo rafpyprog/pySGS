@@ -115,7 +115,7 @@ def search_ts(query: Union[int, str], language: str) -> Optional[list]:
     :param language: string (en or pt) used in query and return results.
 
     :return: List of results matching the search query.
-    :rtype: list
+    :rtype: list_
 
     Usage::
 
