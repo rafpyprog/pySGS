@@ -86,6 +86,8 @@ Installation
 ------------
 To install, simply use pip:
 
+.. code-block::
+
     $ pip install sgs
 
 Documentation
