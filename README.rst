@@ -1,11 +1,29 @@
-.. image:: https://travis-ci.org/rafpyprog/pySGS.svg?branch=master
-    :target: https://travis-ci.org/rafpyprog/pySGS
+.. image:: https://img.shields.io/pypi/v/sgs.svg
+    :target: https://pypi.org/project/sgs/
+
+.. image:: https://img.shields.io/pypi/l/sgs.svg
+    :target: https://pypi.org/project/sgs/
+
+.. image:: https://img.shields.io/pypi/pyversions/sgs.svg
+    :target: https://pypi.org/project/sgs/
+
+.. image:: https://img.shields.io/pypi/dm/sgs.svg
+    :target: https://pypi.org/project/sgs/
+
+.. image:: https://img.shields.io/travis/rafpyprog/pysgs.svg
+    :target: https://travis-ci.org/rafpyprog/pySGS/
+
+.. image:: https://img.shields.io/codecov/c/github/rafpyprog/pysgs.svg
+    :target: https://codecov.io/github/rafpyprog/pysgs
+    :alt: codecov.io
 
 
-|pic 1| **pySGS**
+|pic 1| **SGS**
 =================
 
 .. |pic 1| image:: https://raw.githubusercontent.com/rafpyprog/sgs/master/icon.png
+
+
 
 Este pacote funciona como um wrapper para o webservice do
 Sistema Gerenciador de Séries Temporais (SGS) do Banco Central do Brasil, facilitando o trabalho de desenvolvedores e pesquisadores que necessitam de séries temporais de indicadores financeiros.

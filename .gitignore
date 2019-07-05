@@ -13,6 +13,7 @@ env/
 *.pyc
 *.swp
 *.egg
+*.sh
 
 .coverage
 MANIFEST
