@@ -86,7 +86,7 @@ Installation
 ------------
 To install, simply use pip:
 
-.. code-block::
+.. code-block:: bash
 
     $ pip install sgs
 
