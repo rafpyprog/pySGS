@@ -44,7 +44,7 @@ Quickstart
 ----------
 Access time series data with **sgs** is very simple
 
-Begin by importing the ``sgs`` module::
+Begin by importing the ``sgs`` module:
 
 
 .. code-block:: python
