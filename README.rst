@@ -50,17 +50,14 @@ Begin by importing the ``sgs`` module::
 
 Now, let's try to get a time serie. For this example, let's get the
 "Interest rate - CDI" time serie in 2018, wich has the code 12.
-Don't worry, on the next steps we will learn how to search for time
-series codes::
-
 
 .. code-block:: python
 
     >>> CDI_CODE = 12
     >>> ts = sgs.time_serie(CDI_CODE, start='02/01/2018', end='31/12/2018')
 
-Now, we have a Pandas Series object called ``ts``, with all the data and the index
-representing the dates.
+Now, we have a Pandas Series object called ``ts``, with all the data and
+the index representing the dates.
 
 .. code-block:: python
 
