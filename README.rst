@@ -81,3 +81,9 @@ the index representing the dates.
 | 2018-01-08 | 0.026444 |
 +------------+----------+
 
+
+Documentation
+-------------
+Documentation
+
+Fantastic documentation is available at https://pysgs.readthedocs.io/en/stable/.
