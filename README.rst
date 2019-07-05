@@ -18,6 +18,10 @@
     :alt: codecov.io
 
 
+.. image:: https://img.shields.io/readthedocs/pysgs.svg
+    :target: https://pysgs.readthedocs.io/en/stable/
+    :alt: Read the docs!
+
 |pic 1| **SGS**
 =================
 
@@ -25,82 +29,79 @@
 
 
 
-Este pacote funciona como um wrapper para o webservice do
-Sistema Gerenciador de Séries Temporais (SGS) do Banco Central do Brasil, facilitando o trabalho de desenvolvedores e pesquisadores que necessitam de séries temporais de indicadores financeiros.
+Introduction
+------------
+This library provides a pure Python interface for the Brazilian Central Bank's
+`Time Series Management System (SGS) <https://www.bcb.gov.br/?sgs>`_  api.
+It works with Python 3.5 and above.
 
-Instalação
-==========
+SGS is a service with more than 18,000 time series with economical and financial information.
+This library is intended to make it easier for Python programmers to use this data in projects of
+any kind, providing mechanisms to search for, extract and join series.
+
+
+Quickstart
+----------
+Access time series data with **sgs** is very simple
+
+Begin by importing the ``sgs`` module:
+
+
+.. code-block:: python
+
+    import sgs
+
+
+Now, let's try to get a time serie. For this example, let's get the
+"Interest rate - CDI" time serie in 2018, wich has the code 12.
+
+
+.. code-block:: python
+
+    CDI_CODE = 12
+    ts = sgs.time_serie(CDI_CODE, start='02/01/2018', end='31/12/2018')
+
+
+Now, we have a Pandas Series object called ``ts``, with all the data and
+the index representing the dates.
+
+.. code-block:: python
+
+    ts.head()
+
++------------+----------+
+| 2018-01-02 | 0.026444 |
++------------+----------+
+| 2018-01-03 | 0.026444 |
++------------+----------+
+| 2018-01-04 | 0.026444 |
++------------+----------+
+| 2018-01-05 | 0.026444 |
++------------+----------+
+| 2018-01-08 | 0.026444 |
++------------+----------+
+
+Feature Suport
+--------------
+
+* Get time serie data with an one-liner using ``sgs.time_serie``
+* Create a dataframe from a list of time series codes with ``sgs.dataframe``
+* Search time series by text or code with ``sgs.search_ts``
+* Get metadata from all the series in a dataframe using ``sgs.metadata``
+* Support to search and metadata in English and Portuguese
+* Automatic retry
+* Automatic cached requests
+
+
+Installation
+------------
+To install, simply use pip:
 
 .. code-block:: bash
 
-    pip install sgs
+    $ pip install sgs
 
+Documentation
+-------------
 
-Tutorial
-========
-
-
-Para obter a série temporal de um indicador, instancie a classe SGS, utilizando como parâmetros o código da série desejada e a data de ínicio e fim. Será retornado um pandas.DataFrame, com a coluna do tipo data devidamente formatadas no formato datetime e os valores da série.
-
-.. code-block:: python
-
-    # Exemplo de pesquisa do CDI no ano de 2016
-    >>> from sgs import SGS
-    >>>
-    >>> sgs = SGS()
-    >>> df = sgs.get_valores_series(12, '01/01/2016', '31/12/2016')
-    >>> df.head()
-
-
-+---+------------+----------+
-|   | **DATA**   | **VALOR**|
-+---+------------+----------+
-| 0 | 2016-01-04 | 0.052496 |
-+---+------------+----------+
-| 1 | 2016-01-05 | 0.052496 |
-+---+------------+----------+
-| 2 | 2016-01-06 | 0.052496 |
-+---+------------+----------+
-| 3 | 2016-01-07 | 0.052496 |
-+---+------------+----------+
-| 4 | 2016-01-08 | 0.052496 |
-+---+------------+----------+
-
-
-O módulo auxiliar 'series' possui o código de alguns indicadores mais comuns:
-
-.. code-block:: python
-
-    >>> from sgs import SGS, series
-    >>>
-    >>> sgs = SGS()
-    >>> df = sgs.get_valores_series(series.BOVESPA_INDICE, '31/12/2017', '01/02/2018')
-    >>> df.head()
-
-
-+--+------------+-----------+
-|  | **DATA**   | **VALOR** |
-+--+------------+-----------+
-|0 | 2018-01-02 |77891      |
-+--+------------+-----------+
-|1 | 2018-01-03 |77995      |
-+--+------------+-----------+
-|2 | 2018-01-04 |78647      |
-+--+------------+-----------+
-|3 | 2018-01-05 |79071      |
-+--+------------+-----------+
-|4 | 2018-01-08 |79378      |
-+--+------------+-----------+
-
-
-.. code-block:: python
-
-    >>> # Indicadores disponíveis
-    >>> dir(series)[-8]
-    ['BOVESPA_VALOR_LISTADAS', 'BOVESPA_INDICE', 'BOVESPA_QTD_LISTADAS', 'BOVESPA_VOLUME', 'CDI',
-     'DOWN_JONES', 'IGP10', 'IGPDI', 'INCC', 'IPA', 'IPC', 'IPCA', 'NASDAQ', 'OURO', 'PIB_RS_CORRENTE',
-     'PIB_VAR_PERC', 'POUPANCA_I', 'POUPANCA_II', 'SELIC', 'SELIC_ACUM_MES', 'SELIC_META', 'TBF',
-     'TJLP', 'TR']
-
-
-Para consultar código das séries disponíveis e outras informações, visite o site do SGS: https://www3.bcb.gov.br/sgspub/
+Complete documentation is available at https://pysgs.readthedocs.io/en/stable/.
