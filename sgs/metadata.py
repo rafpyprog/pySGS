@@ -5,10 +5,8 @@ import pandas as pd
 from .search import search_ts
 
 
-def metadata(
-    ts_code: Union[int, pd.DataFrame], language: str="en"
-) -> Optional[List]:
-    """Request metadata about time series present in a pandas dataframe.
+def metadata(ts_code: Union[int, pd.DataFrame], language: str = "en") -> Optional[List]:
+    """Request metadata about a time serie or all time series in a pandas dataframe.
 
     :param ts_code: time serie code or pandas dataframe with time series as columns.
     :param language: language of the returned metadata.
@@ -18,17 +16,15 @@ def metadata(
 
     Usage::
 
-        >>> time_series = [12, 192]
-        >>> df = sgs.dataframe(time_series, start='02/01/2018', end='31/12/2018')
-
-        >>> results = sgs.search_ts("gold", language="en")
-        >>> len(results)
-        29
-        >>> results[0]
-        {'code': 4, 'name': 'BM&F Gold - gramme', 'unit': 'c.m.u.',
-        'frequency': 'D', 'first_value': Timestamp('1989-12-29 00:00:00'),
-        'last_value': Timestamp('2019-06-27 00:00:00'),
-        'source': 'BM&FBOVESPA'}
+        >>> CDI = 12
+        >>> INCC = 192  #  National Index of Building Costs
+        >>> df = sgs.dataframe([CDI, INCC], start='02/01/2018', end='31/12/2018')
+        >>> sgs.metadata(df)
+        [{'code': 12, 'name': 'Interest rate - CDI', 'unit': '% p.d.', 'frequency': 'D',
+        'first_value': Timestamp('1986-03-06 00:00:00'), 'last_value': Timestamp('2019-06-27 00:00:00'),
+        'source': 'Cetip'}, {'code': 192, 'name': 'National Index of Building Costs (INCC)',
+        'unit': 'Monthly % var.', 'frequency': 'M', 'first_value': Timestamp('1944-02-29 00:00:00'),
+        'last_value': Timestamp('2019-05-01 00:00:00'), 'source': 'FGV'}]
     """
     info = []
     if isinstance(ts_code, pd.core.frame.DataFrame):

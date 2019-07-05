@@ -37,7 +37,7 @@ class Columns(Enum):
         "name": "Nome completo",
         "source": "Fonte",
         "unit": "Unid.",
-        }
+    }
 
     en = {
         "start": "Start  dd/MM/yyyy",
@@ -47,7 +47,7 @@ class Columns(Enum):
         "name": "Full name",
         "source": "Source",
         "unit": "Unit",
-        }
+    }
 
 
 def init_search_session(language: str) -> requests.Session:
@@ -68,7 +68,7 @@ def init_search_session(language: str) -> requests.Session:
 def parse_search_response(response, language: str) -> Optional[list]:
     HTML = response.text
 
-    not_found_msgs = ('No series found', 'Nenhuma série localizada')
+    not_found_msgs = ("No series found", "Nenhuma série localizada")
     if any(msg in HTML for msg in not_found_msgs):
         return None
 
@@ -77,7 +77,7 @@ def parse_search_response(response, language: str) -> Optional[list]:
     LAST = cols["last"]
 
     try:
-        df = pd.read_html(HTML, attrs={"id": "tabelaSeries"}, flavor='lxml')[0]
+        df = pd.read_html(HTML, attrs={"id": "tabelaSeries"}, flavor="lxml")[0]
         df[START] = df[START].map(lambda x: to_datetime(x, language))
         df[LAST] = df[LAST].map(lambda x: to_datetime(x, language))
         col_names = {
@@ -129,15 +129,14 @@ def search_ts(query: Union[int, str], language: str) -> Optional[list]:
     """
 
     session = init_search_session(language)
-    URL = ("https://www3.bcb.gov.br/sgspub/localizarseries/"
-           "localizarSeries.do")
+    URL = "https://www3.bcb.gov.br/sgspub/localizarseries/" "localizarSeries.do"
 
     if isinstance(query, int):
         search_method = SearchMethod.code
     elif isinstance(query, str):
         search_method = SearchMethod.text
     else:
-        raise ValueError('query must be an int or str: ({})'.format(query))
+        raise ValueError("query must be an int or str: ({})".format(query))
 
     url = URL.format(search_method.value)
 
@@ -161,8 +160,7 @@ def search_ts(query: Union[int, str], language: str) -> Optional[list]:
         "hdOidSerieMetadados": None,
         "hdNumeracao": None,
         "hdOidSeriesLocalizadas": None,
-        "linkRetorno":
-            "/sgspub/consultarvalores/telaCvsSelecionarSeries.paint",
+        "linkRetorno": "/sgspub/consultarvalores/telaCvsSelecionarSeries.paint",
         "linkCriarFiltros": "/sgspub/manterfiltros/telaMfsCriarFiltro.paint",
     }
 

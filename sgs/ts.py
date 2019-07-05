@@ -39,6 +39,6 @@ def time_serie(ts_code: int, start: str, end: str) -> pd.Series:
     index = []
     for i in api.get_data(ts_code, start, end):
         values.append(i["valor"])
-        index.append(to_datetime(i["data"], 'pt'))
+        index.append(to_datetime(i["data"], "pt"))
 
     return pd.Series(values, index, name=ts_code, dtype=np.float)

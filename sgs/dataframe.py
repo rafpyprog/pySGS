@@ -10,9 +10,7 @@ from . import search
 from .ts import time_serie
 
 
-def dataframe(
-    ts_codes: Union[int, List, Tuple], start: str, end: str
-) -> pd.DataFrame:
+def dataframe(ts_codes: Union[int, List, Tuple], start: str, end: str) -> pd.DataFrame:
     """
     Creates a dataframe from a list of time serie codes.
 
@@ -20,19 +18,22 @@ def dataframe(
     :param start: start date (DD/MM/YYYY).
     :param end: end date (DD/MM/YYYY).
 
-    :return: Time serie values as pandas Series indexed by date.
-    :rtype: pandas.Series_
+    :return: Pandas dataframe.
+    :rtype: pandas.DataFrame_
 
     Usage::
 
         >>> CDI = 12
-        >>> ts = sgs.time_serie(CDI_CODE, start='02/01/2018', end='31/12/2018')
-        >>> ts.head()
-        2018-01-02    0.026444
-        2018-01-03    0.026444
-        2018-01-04    0.026444
-        2018-01-05    0.026444
-        2018-01-08    0.026444
+        >>> INCC = 192  #  National Index of Building Costs
+        >>> df = sgs.dataframe([CDI, INCC], start='02/01/2018', end='31/12/2018')
+        >>> df.head()
+                         12    192
+        2018-01-01       NaN  0.31
+        2018-01-02  0.026444   NaN
+        2018-01-03  0.026444   NaN
+        2018-01-04  0.026444   NaN
+        2018-01-05  0.026444   NaN
+
     """
     if isinstance(ts_codes, int):
         ts_codes = [ts_codes]

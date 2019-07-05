@@ -1,12 +1,12 @@
 .. _install:
 
-Installation of PySGS
-=====================
+Installing SGS
+==============
 
 pip install
 -----------
 
-To install PySGS, simply run this simple command in your terminal of choice::
+To install **sgs**, simply run this command in your terminal of choice::
 
     $ pip install sgs
 
@@ -14,7 +14,7 @@ To install PySGS, simply run this simple command in your terminal of choice::
 Get the Source Code
 -------------------
 
-PySGS is developed on GitHub, where the code is
+**Sgs** is developed on GitHub, where the code is
 `always available <https://github.com/rafpyprog/pySGS>`_.
 
 You can clone the public repository::

@@ -3,20 +3,20 @@
 Quickstart
 ==========
 
-Eager to get started? This page gives a good introduction in how to get started with PySGS.
+Eager to get started? This page gives a good introduction in how to get started with **sgs**.
 
 First, make sure that:
 
-* PySGS is :ref:`installed <install>`
+* Sgs is :ref:`installed <install>`
 
 Let’s get started with some simple examples.
 
 
 Time Serie
 ----------
-Access time series data with PySGS is very simple
+Access time series data with **sgs** is very simple
 
-Begin by importing the PySGS module::
+Begin by importing the ``sgs`` module::
 
     >>> import sgs
 
@@ -25,7 +25,7 @@ Now, let's try to get a time serie. For this example, let's get the
 Don't worry, on the next steps we will learn how to search for time
 series codes::
 
-    >>> CDI = 12
+    >>> CDI_CODE = 12
     >>> ts = sgs.time_serie(CDI_CODE, start='02/01/2018', end='31/12/2018')
 
 Now, we have a Pandas Series object called ``ts``, with all the data and the index
@@ -66,7 +66,7 @@ while CDI has a daily frequency.
 Searching
 ---------
 
-SGS provides thousands of time series. It's possible to search for time series by code and
+The SGS service provides thousands of time series. It's possible to search for time series by code and
 also by name, with support to queries in English and Portuguese.
 
 

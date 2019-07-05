@@ -2,6 +2,7 @@ Developer Interface
 -------------------
 
 .. _pandas.Series: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html
+.. _pandas.DataFrame: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html
 .. _list: https://docs.python.org/3/library/stdtypes.html#list
 
 Main Interface
