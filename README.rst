@@ -81,6 +81,15 @@ the index representing the dates.
 | 2018-01-08 | 0.026444 |
 +------------+----------+
 
+Feature Suport
+--------------
+
+* Create a dataframe from a list of time series codes with ```sgs.dataframe```
+* Search time series by text or code with ```sgs.search_ts```
+* Get metadata from all the series in a dataframe using ```sgs.metadata```
+* Automatic retry
+* Automatic cached requests
+
 
 Installation
 ------------
