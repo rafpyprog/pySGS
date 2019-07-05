@@ -7,14 +7,17 @@ with open('README.rst', 'r', encoding='utf-8') as f:
 
 
 requirements = [
-    'pandas>=0.22.0',
+    'lxml>=4.3.4',
+    'pandas>=0.24.2',
+    'retrying>=1.3.3',
+    'requests>=2.22.0',
 ]
 
 dev_requirements = [
     "bandit==1.6.0",
+    "codecov==2.0.15",
     "pytest==4.6.2",
     "pytest-cov==2.7.1",
-    "pytest-pep8==1.0.6",
     "pytest-mypy==0.3.2"
 ]
 
