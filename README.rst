@@ -46,9 +46,11 @@ Access time series data with **sgs** is very simple
 
 Begin by importing the ``sgs`` module::
 
+
 .. code-block:: python
 
     import sgs
+
 
 Now, let's try to get a time serie. For this example, let's get the
 "Interest rate - CDI" time serie in 2018, wich has the code 12.
