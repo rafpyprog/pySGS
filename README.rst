@@ -46,27 +46,22 @@ Access time series data with **sgs** is very simple
 
 Begin by importing the ``sgs`` module::
 
-    >>> import sgs
+.. code-block:: python
+
+    import sgs
 
 Now, let's try to get a time serie. For this example, let's get the
 "Interest rate - CDI" time serie in 2018, wich has the code 12.
 
 .. code-block:: python
 
-    >>> CDI_CODE = 12
-    >>> ts = sgs.time_serie(CDI_CODE, start='02/01/2018', end='31/12/2018')
+    CDI_CODE = 12
+    ts = sgs.time_serie(CDI_CODE, start='02/01/2018', end='31/12/2018')
 
 Now, we have a Pandas Series object called ``ts``, with all the data and
 the index representing the dates.
 
-    >>> ts.head()
-    2018-01-02 0.026444
-    2018-01-03 0.026444
-    2018-01-04 0.026444
-    2018-01-05 0.026444
-    2018-01-08 0.026444
-
-
+    ts.head()
 
 +------------+----------+
 | 2018-01-02 | 0.026444 |
