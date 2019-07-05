@@ -82,8 +82,13 @@ the index representing the dates.
 +------------+----------+
 
 
+Installation
+------------
+To install, simply use pip:
+
+    $ pip install sgs
+
 Documentation
 -------------
-Documentation
 
-Fantastic documentation is available at https://pysgs.readthedocs.io/en/stable/.
+Complete documentation is available at https://pysgs.readthedocs.io/en/stable/.
