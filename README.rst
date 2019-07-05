@@ -17,7 +17,6 @@
     :target: https://codecov.io/github/rafpyprog/pysgs
     :alt: codecov.io
 
-
 .. image:: https://img.shields.io/readthedocs/pysgs.svg
     :target: https://pysgs.readthedocs.io/en/stable/
     :alt: Read the docs!
@@ -26,8 +25,6 @@
 =================
 
 .. |pic 1| image:: https://raw.githubusercontent.com/rafpyprog/sgs/master/icon.png
-
-
 
 Introduction
 ------------
