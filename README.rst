@@ -65,6 +65,8 @@ Now, let's try to get a time serie. For this example, let's get the
 Now, we have a Pandas Series object called ``ts``, with all the data and
 the index representing the dates.
 
+.. code-block:: python
+
     ts.head()
 
 +------------+----------+
