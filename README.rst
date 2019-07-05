@@ -84,9 +84,11 @@ the index representing the dates.
 Feature Suport
 --------------
 
-* Create a dataframe from a list of time series codes with ```sgs.dataframe```
-* Search time series by text or code with ```sgs.search_ts```
-* Get metadata from all the series in a dataframe using ```sgs.metadata```
+* Get time serie data with an one-liner using ``sgs.time_serie``
+* Create a dataframe from a list of time series codes with ``sgs.dataframe``
+* Search time series by text or code with ``sgs.search_ts``
+* Get metadata from all the series in a dataframe using ``sgs.metadata``
+* Support to search and metadata in English and Portuguese
 * Automatic retry
 * Automatic cached requests
 
