@@ -4,22 +4,25 @@ import requests
 from sgs.search import *
 from sgs.common import to_datetime
 
-
+@pytest.mark.search
 @pytest.mark.parametrize("language", ["en", "pt"])
 def test_init_search_session(language):
     session = init_search_session(language)
     assert isinstance(session, requests.Session)
 
 
+@pytest.mark.search
 def test_search_by_code_english():
     code = 4
     results = search_ts(code, Language.en.value)
+    print(results)
     metadata = results[0]
     assert metadata['name'] == "BM&F Gold - gramme"
     assert metadata['first_value'] == to_datetime("29/12/1989", "en")
     assert metadata['frequency'] == "D"
 
 
+@pytest.mark.search
 def test_search_by_code_portuguese():
     code = 4
     results = search_ts(code, Language.pt.value)
@@ -29,6 +32,7 @@ def test_search_by_code_portuguese():
     assert metadata['frequency'] == "D"
 
 
+@pytest.mark.search
 @pytest.mark.parametrize(
     "query,language,expected",
     [
@@ -74,6 +78,7 @@ def test_search_by_code(query, language, expected):
     assert results["first_value"] == first_value
 
 
+@pytest.mark.search
 def test_search_by_text():
     results = search_ts("Ouro BM$F - grama", "pt")
     assert isinstance(results, list)
@@ -84,6 +89,14 @@ def test_search_by_text():
     assert results is None
 
 
+@pytest.mark.search
+def test_search_by_text_query_returns_multiple_result_pages():
+    results = search_ts("produto", "pt")
+    assert isinstance(results, list)
+    assert len(results) == 50
+
+
+@pytest.mark.search
 def test_search_by_text_multiple_results():
     results = search_ts("dolar", "pt")
     assert isinstance(results, list)
