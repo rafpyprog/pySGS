@@ -3,6 +3,7 @@ Shared functions.
 """
 from datetime import datetime
 import locale
+import re
 from typing import Union
 
 
@@ -18,11 +19,21 @@ def to_datetime(date_string: str, language: str) -> Union[datetime, str]:
 
     dd_mm_aaaa = "%d/%m/%Y"
     mmm_aaaa = "%b/%Y"
-    try:
-        date = datetime.strptime(date_string, dd_mm_aaaa)
-    except ValueError:
+    aaaa = "%Y"
+
+    formats = [dd_mm_aaaa, mmm_aaaa]
+
+    for fmt in formats:
         try:
-            date = datetime.strptime(date_string, mmm_aaaa)
+            date = datetime.strptime(date_string, fmt)
+            break
         except ValueError:
-            return date_string  # ignore errors and return original value
+            continue
+    else:
+        if re.match('[0-9]{4}', date_string):
+            year = int(date_string)
+            date = datetime(year, 12, 31)
+        else:
+            return date_string  # returns original value if cant parse
+
     return date
