@@ -19,3 +19,10 @@ def test_to_datetime_dd_mm_aaaaa(language):
 def test_to_datetime_mmm_aaaaa(date_string, language):
     expected = datetime(day=1, month=5, year=2018)
     assert to_datetime(date_string, language) == expected
+
+
+@pytest.mark.common
+def test_to_datetime_aaaaa():
+    expected = datetime(day=31, month=12, year=2018)
+    date_string = '2018'
+    assert to_datetime(date_string, 'pt') == expected
