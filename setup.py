@@ -1,13 +1,14 @@
 from setuptools import setup, find_packages
 
-__version__ = '2.0'
+__version__ = '2.0.1'
 
 with open('README.rst', 'r', encoding='utf-8') as f:
     readme = f.read()
 
 
 requirements = [
-    'lxml>=4.3.4',
+    'beautifulsoup4>=4.7.1',
+    'html5lib>=1.0.1',
     'pandas>=0.24.2',
     'retrying>=1.3.3',
     'requests>=2.22.0',
