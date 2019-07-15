@@ -19,7 +19,6 @@ def to_datetime(date_string: str, language: str) -> Union[datetime, str]:
 
     dd_mm_aaaa = "%d/%m/%Y"
     mmm_aaaa = "%b/%Y"
-    aaaa = "%Y"
 
     formats = [dd_mm_aaaa, mmm_aaaa]
 
@@ -30,9 +29,12 @@ def to_datetime(date_string: str, language: str) -> Union[datetime, str]:
         except ValueError:
             continue
     else:
-        if re.match('[0-9]{4}', date_string):
+        yyyy = "[0-9]{4}"
+        if re.match(yyyy, date_string):
             year = int(date_string)
-            date = datetime(year, 12, 31)
+            month = 12
+            day = 31
+            date = datetime(year, month, day)
         else:
             return date_string  # returns original value if cant parse
 
