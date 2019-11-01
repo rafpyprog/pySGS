@@ -18,7 +18,7 @@ def to_datetime(date_string: str, language: str) -> Union[datetime, str]:
 
     """ correct problem with locale in Windows platform """
     if os.name == 'nt':
-        locales = {"pt": "Portuguese_Brazil.1252", "en": "en_US.utf-8"}
+        locales = {"pt": "Portuguese_Brazil.1252", "en": "Portuguese_Brazil.1252"}
     
     locale.setlocale(locale.LC_TIME, locales[language])
 
