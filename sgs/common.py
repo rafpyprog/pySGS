@@ -5,6 +5,7 @@ from datetime import datetime
 import locale
 import re
 from typing import Union
+import os
 
 
 LRU_CACHE_SIZE = 32
@@ -15,6 +16,10 @@ def to_datetime(date_string: str, language: str) -> Union[datetime, str]:
     """ Converts a date string to a datetime object """
     locales = {"pt": "pt_BR.utf-8", "en": "en_US.utf-8"}
 
+    """ correct problem with locale in Windows platform """
+    if os.name == 'nt':
+        locales = {"pt": "Portuguese_Brazil.1252", "en": "en_US.utf-8"}
+    
     locale.setlocale(locale.LC_TIME, locales[language])
 
     dd_mm_aaaa = "%d/%m/%Y"
