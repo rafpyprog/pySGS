@@ -1,8 +1,8 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 
+__version__ = '2.0.4'
 
-__version__ = '2.0.3'
 
 with open('README.rst', 'r', encoding='utf-8') as f:
     readme = f.read()
@@ -21,7 +21,7 @@ dev_requirements = [
     "codecov==2.0.15",
     "pytest==4.6.2",
     "pytest-cov==2.7.1",
-    "pytest-mypy==0.3.2"
+    "pytest-mypy>=0.3.2"
 ]
 
 setup(
