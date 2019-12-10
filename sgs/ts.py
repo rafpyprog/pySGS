@@ -41,4 +41,6 @@ def time_serie(ts_code: int, start: str, end: str) -> pd.Series:
         values.append(i["valor"])
         index.append(to_datetime(i["data"], "pt"))
 
+    # Transform empty strings in null values
+    values = [np.nan if value == "" else value for value in values]
     return pd.Series(values, index, name=ts_code, dtype=np.float)
