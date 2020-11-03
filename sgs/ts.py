@@ -18,7 +18,7 @@ def time_serie(ts_code: int, start: str, end: str, strict: bool = False) -> pd.S
     :param ts_code: time serie code.
     :param start: start date (DD/MM/YYYY).
     :param end: end date (DD/MM/YYYY).
-    :param strict: boolean used to enforce integrity.
+    :param strict: boolean to enforce a strict date range.
 
     :return: Time serie values as pandas Series indexed by date.
     :rtype: pandas.Series_
@@ -34,6 +34,7 @@ def time_serie(ts_code: int, start: str, end: str, strict: bool = False) -> pd.S
         2018-01-05    0.026444
         2018-01-08    0.026444
     """
+    
     if strict:
         ts_data = api.get_data_with_strict_range(ts_code, start, end)
     else:

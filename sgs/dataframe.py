@@ -17,7 +17,7 @@ def dataframe(ts_codes: Union[int, List, Tuple], start: str, end: str, strict: b
     :param ts_codes: single code or list/tuple of time series codes.
     :param start: start date (DD/MM/YYYY).
     :param end: end date (DD/MM/YYYY).
-    :param strict: boolean used to enforce integrity.
+    :param strict: boolean to enforce a strict date range.
 
     :return: Pandas dataframe.
     :rtype: pandas.DataFrame_

@@ -8,7 +8,6 @@ from retrying import retry
 from .common import LRU_CACHE_SIZE, MAX_ATTEMPT_NUMBER, to_datetime
 
 
-
 @retry(stop_max_attempt_number=MAX_ATTEMPT_NUMBER)
 @functools.lru_cache(maxsize=LRU_CACHE_SIZE)
 def get_data(ts_code: int, begin: str, end: str) -> List:
@@ -22,7 +21,6 @@ def get_data(ts_code: int, begin: str, end: str) -> List:
     )
     request_url = url.format(ts_code, begin, end)
     response = requests.get(request_url)
-
     return response.json()
     
 def get_data_with_strict_range(ts_code: int, begin: str, end: str) -> List:
