@@ -12,7 +12,9 @@ def test_get_data():
     assert len(data) == NUMBER_OF_LINES
     
 @pytest.mark.api
-def test_enforce_integrity():
-    data = api.get_data(20577, "17/08/2019", "18/08/2019", True)
+def test_get_data_with_strict_range():
+    NUMBER_OF_LINES = 0
+    data = api.get_data_with_strict_range(20577, "17/08/2019", "18/08/2019")
     assert isinstance(data, list)
-    assert len(data) == 0
+    assert len(data) == NUMBER_OF_LINES
+
