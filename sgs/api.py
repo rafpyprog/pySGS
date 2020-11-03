@@ -52,10 +52,10 @@ def get_data_with_strict_range(ts_code: int, begin: str, end: str) -> List:
         if is_out_of_range:
             raise ValueError
     except TypeError:
-        print("ERROR: Please, use format 'DD/MM/YYYY' for date strings.")
+        print("ERROR: Serie " + str(ts_code) + " - Please, use 'DD/MM/YYYY' format for date strings.")
         data = []
     except ValueError:
-        print("WARNING: There is no data for requested period, but there's data before.")
+        print("WARNING: Serie " + str(ts_code) + " - There is no data for the requested period, but there's previous data.")
         data = []
     
     return data
