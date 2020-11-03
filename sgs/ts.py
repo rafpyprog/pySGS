@@ -34,10 +34,14 @@ def time_serie(ts_code: int, start: str, end: str, strict: bool = False) -> pd.S
         2018-01-05    0.026444
         2018-01-08    0.026444
     """
-
+    if strict:
+        ts_data = api.get_data_with_strict_range(ts_code, start, end)
+    else:
+        ts_data = api.get_data(ts_code, start, end)
+        
     values = []
     index = []
-    for i in api.get_data(ts_code, start, end, strict):
+    for i in ts_data:
         values.append(i["valor"])
         index.append(to_datetime(i["data"], "pt"))
 

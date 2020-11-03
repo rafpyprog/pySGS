@@ -11,7 +11,7 @@ from .common import LRU_CACHE_SIZE, MAX_ATTEMPT_NUMBER, to_datetime
 
 @retry(stop_max_attempt_number=MAX_ATTEMPT_NUMBER)
 @functools.lru_cache(maxsize=LRU_CACHE_SIZE)
-def get_data(ts_code: int, begin: str, end: str, strict: bool = False) -> List:
+def get_data(ts_code: int, begin: str, end: str) -> List:
     """
     Requests time series data from the SGS API in json format.
     """
@@ -22,41 +22,42 @@ def get_data(ts_code: int, begin: str, end: str, strict: bool = False) -> List:
     )
     request_url = url.format(ts_code, begin, end)
     response = requests.get(request_url)
+
+    return response.json()
     
-    if strict:
-        data = enforce_integrity(response.json(), begin, end)
-    else:
-        data = response.json()
-    
-    return data
-    
-def enforce_integrity(data_from_sgs: list, start: str, end: str) -> List:
+def get_data_with_strict_range(ts_code: int, begin: str, end: str) -> List:
+
     """
-    Enforce integrity
-    
-    SGS API default behaviour returns the last stored value when selected period have no data.
+    Request time series data from the SGS API considering a strict range of dates.
+        
+    SGS API default behaviour returns the last stored value when selected date range have no data.
 
     It is possible to catch this behaviour when the first record date precedes the start date.
     
-    This function enforces an empty data set when the first record date precedes the start date.
+    This function enforces an empty data set when the first record date precedes the start date, avoiding records out of selected range.
     
-    :param data_from_sgs: List containing data from sgs.
-    :param start: start date (DD/MM/YYYY).
+    :param ts_code: time serie code.
+    :param begin: start date (DD/MM/YYYY).
     :param end: end date (DD/MM/YYYY).
   
-    :return: List containing data from sgs or an empty list
+    :return: Data in json format or an empty list
     :rtype: list
 
     """
-
-    first_record_date = to_datetime(data_from_sgs[0]["data"], "pt")
-    period_start_date = to_datetime(start, 'pt')
-
-    is_out_of_range =  first_record_date < period_start_date
+    data = get_data(ts_code, begin, end)
     
-    if is_out_of_range:
-        ts_data = []
-    else:
-        ts_data = data_from_sgs
+    first_record_date = to_datetime(data[0]["data"], "pt")
+    period_start_date = to_datetime(begin, 'pt')
     
-    return ts_data
+    try:
+        is_out_of_range =  first_record_date < period_start_date
+        if is_out_of_range:
+            raise ValueError
+    except TypeError:
+        print("ERROR: Please, use format 'DD/MM/YYYY' for date strings.")
+        data = []
+    except ValueError:
+        print("WARNING: There is no data for requested period, but there's data before.")
+        data = []
+    
+    return data
