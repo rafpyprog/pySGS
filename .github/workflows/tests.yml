@@ -5,6 +5,10 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-18.04
+    strategy:      
+      max-parallel: 4
+      matrix:
+        python-version: [3.5, 3.6, 3.7, 3.8]
     steps:
       - uses: actions/checkout@v2
 
@@ -14,7 +18,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v1
         with:
-          python-version: 3.7
+          python-version: ${{ matrix.python-version }}
 
       - name: Install dependencies with pip
         run: |
