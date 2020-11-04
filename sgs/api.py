@@ -48,7 +48,7 @@ def get_data_with_strict_range(ts_code: int, begin: str, end: str) -> List:
     period_start_date = to_datetime(begin, 'pt')
     
     try:
-        is_out_of_range =  first_record_date < period_start_date
+        is_out_of_range =  first_record_date < period_start_date  #type: ignore
         if is_out_of_range:
             raise ValueError
     except TypeError:
