@@ -5,7 +5,7 @@ import pandas as pd
 from .search import search_ts
 
 
-def metadata(ts_code: Union[int, pd.DataFrame], language: str = "en") -> Optional[List]:
+def metadata(ts_code: Union[int, pd.DataFrame, pd.Series], language: str = "en") -> Optional[List]:
     """Request metadata about a time serie or all time series in a pandas dataframe.
 
     :param ts_code: time serie code or pandas dataframe with time series as columns.
@@ -26,15 +26,20 @@ def metadata(ts_code: Union[int, pd.DataFrame], language: str = "en") -> Optiona
         'unit': 'Monthly % var.', 'frequency': 'M', 'first_value': Timestamp('1944-02-29 00:00:00'),
         'last_value': Timestamp('2019-05-01 00:00:00'), 'source': 'FGV'}]
     """
-    info = []
-    if isinstance(ts_code, pd.core.frame.DataFrame):
-        for col in ts_code.columns:
-            col_info = search_ts(col, language)
-            if col_info is not None:
-                info.append(col_info[0])
-            else:
-                info.append(None)
+    
+    if isinstance(ts_code, pd.core.series.Series):
+        codes = [ts_code.name]
+    elif isinstance(ts_code, pd.core.frame.DataFrame):
+        codes = ts_code.columns
     else:
-        col_info = search_ts(ts_code, language)
-        info.append(col_info)
+        codes = [ts_code]
+
+    info = []
+    for ts in codes:
+        try:
+            metadata = search_ts(ts, language)
+            info.extend(metadata)
+        except:
+            info.append(None)
+    
     return info
