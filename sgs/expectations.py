@@ -1,6 +1,5 @@
 from . import api
 
-import numpy as np
 import pandas as pd
 
 

@@ -1,4 +1,3 @@
-import numpy as np
 import pytest
 
 from sgs.expectations import expectations
@@ -14,7 +13,5 @@ def test_expectations_monthly():
 
 @pytest.mark.expectations
 def test_expectations_invalid_resource():
-    actual = expectations("foobar", "01/01/2020", "01/02/2020")
-    expected = None
-
-    assert actual == expected
+    with pytest.raises(ValueError):
+        expectations("foobar", "01/01/2020", "01/02/2020")
