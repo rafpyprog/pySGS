@@ -10,13 +10,14 @@ from . import search
 from .ts import time_serie
 
 
-def dataframe(ts_codes: Union[int, List, Tuple], start: str, end: str) -> pd.DataFrame:
+def dataframe(ts_codes: Union[int, List, Tuple], start: str, end: str, strict: bool = False) -> pd.DataFrame:
     """
     Creates a dataframe from a list of time serie codes.
 
     :param ts_codes: single code or list/tuple of time series codes.
     :param start: start date (DD/MM/YYYY).
     :param end: end date (DD/MM/YYYY).
+    :param strict: boolean to enforce a strict date range.
 
     :return: Pandas dataframe.
     :rtype: pandas.DataFrame_
@@ -40,7 +41,7 @@ def dataframe(ts_codes: Union[int, List, Tuple], start: str, end: str) -> pd.Dat
 
     series = []
     for code in ts_codes:
-        ts = time_serie(code, start, end)
+        ts = time_serie(code, start, end, strict)
         series.append(ts)
 
     df = pd.concat(series, axis=1)
