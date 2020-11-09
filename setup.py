@@ -1,7 +1,11 @@
 from setuptools import setup
 
 
+<<<<<<< HEAD
 __version__ = '2.0.5'
+=======
+__version__ = '2.1.0'
+>>>>>>> 6e0f02d2de87fdd1bfea73ff6131d57863aceeb8
 
 
 with open('README.rst', 'r', encoding='utf-8') as f:
