@@ -91,9 +91,9 @@ def get_series_codes(
 ) -> List:
 
     if isinstance(code_input, int):
-        codes = list(code_input)
+        codes = [code_input]
     elif isinstance(code_input, pd.Series):
-        codes = list(code_input.name)
+        codes = [code_input.name]
     elif isinstance(code_input, pd.DataFrame):
         codes = list(code_input.columns)
     elif isinstance(code_input, tuple):
