@@ -19,7 +19,7 @@ def test_search_by_code_english():
     print(results)
     metadata = results[0]
     assert metadata['name'] == "BM&F Gold - gramme"
-    assert metadata['first_value'] == to_datetime_string("29/12/1989", "en")
+    assert metadata['first_value'] == to_datetime_string("29/12/1989", "en", "%Y-%m-%d %H:%M:%S")
     assert metadata['frequency'] == "D"
 
 
@@ -29,7 +29,7 @@ def test_search_by_code_portuguese():
     results = search_ts(code, Language.pt.value)
     metadata = results[0]
     assert metadata['name'] == "Ouro BM&F - grama"
-    assert metadata['first_value'] == to_datetime_string("29/12/1989", "pt")
+    assert metadata['first_value'] == to_datetime_string("29/12/1989", "pt", "%Y-%m-%d %H:%M:%S")
     assert metadata['frequency'] == "D"
 
 
@@ -42,7 +42,7 @@ def test_search_by_code_portuguese():
             "pt",
             {
                 "name": "Ouro BM&F - grama",
-                "first_value": to_datetime_string("29/12/1989", "pt"),
+                "first_value": to_datetime_string("29/12/1989", "pt", "%Y-%m-%d %H:%M:%S"),
                 "freq": "D",
             },
         ),
@@ -51,7 +51,7 @@ def test_search_by_code_portuguese():
             "en",
             {
                 "name": "BM&F Gold - gramme",
-                "first_value": to_datetime_string("29/12/1989", "en"),
+                "first_value": to_datetime_string("29/12/1989", "en", "%Y-%m-%d %H:%M:%S"),
                 "freq": "D",
             },
         ),
@@ -63,7 +63,7 @@ def test_search_by_code_portuguese():
                     "Saldo de títulos de dívida emitidos por "
                     "empresas e famílias - títulos privados"
                 ),
-                "first_value": to_datetime_string("01/01/2013", "pt"),
+                "first_value": to_datetime_string("01/01/2013", "pt", "%Y-%m-%d %H:%M:%S"),
                 "freq": "M",
             },
         ),

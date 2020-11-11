@@ -15,7 +15,7 @@ MAX_ATTEMPT_NUMBER = 5
 def to_datetime(date_string: str, language: str) -> datetime:
 
     """ correct problem with locale in Windows platform """
-    if os.name == "nt":
+    if os.name == 'nt':
         locales = {"pt": "Portuguese_Brazil.1252", "en": "Portuguese_Brazil.1252"}
     else:
         locales = {"pt": "pt_BR.utf-8", "en": "en_US.utf-8"}
@@ -41,10 +41,10 @@ def to_datetime(date_string: str, language: str) -> datetime:
     return date
 
 
-def to_datetime_string(date_string: str, language: str) -> str:
+def to_datetime_string(date_string: str, language: str, strformat: str = "%Y-%m-%d") -> str:
 
     try:
-        date = to_datetime(date_string, language).strftime("%Y-%m-%d")
+        date = to_datetime(date_string, language).strftime(strformat)
     except ValueError:
         date = date_string
     return date
