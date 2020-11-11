@@ -11,9 +11,7 @@ from .ts import time_serie
 from .common import get_series_codes
 
 
-def dataframe(
-    ts_codes: Union[int, List, Tuple], start: str, end: str, strict: bool = False
-) -> pd.DataFrame:
+def dataframe(ts_codes: Union[int, List, Tuple], start: str, end: str, strict: bool = False) -> pd.DataFrame:
     """
     Creates a dataframe from a list of time serie codes.
 

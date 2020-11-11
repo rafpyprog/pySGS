@@ -77,9 +77,7 @@ def parse_search_response(response, language: str) -> Optional[list]:
     LAST = cols["last"]
 
     try:
-        df = pd.read_html(
-            HTML, attrs={"id": "tabelaSeries"}, flavor="html5lib", skiprows=1
-        )[0]
+        df = pd.read_html(HTML, attrs={"id": "tabelaSeries"}, flavor="html5lib", skiprows=1)[0]
         df[START] = df[START].map(lambda x: to_datetime_string(str(x), language))
         df[LAST] = df[LAST].map(lambda x: to_datetime_string(str(x), language))
         col_names = {

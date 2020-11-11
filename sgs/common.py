@@ -74,21 +74,16 @@ def apply_strict_range(
     except ValueError:
         strict_data = data.drop(data.index)
         for ts_code in get_series_codes(data):
-            print(
-                "ERROR: Serie %s - use 'DD/MM/YYYY' format for date strings." % ts_code
-            )
+            print("ERROR: Serie %s - use 'DD/MM/YYYY' format for date strings." % ts_code)
+   
     if not data.empty and strict_data.empty:
         for ts_code in get_series_codes(data):
-            print(
-                "WARNING: Serie %s - There is no data for the requested period."
-                % ts_code
-            )
+            print("WARNING: Serie %s - There is no data for the requested period." % ts_code)
+
     return strict_data
 
 
-def get_series_codes(
-    code_input: Union[int, List, Tuple, pd.DataFrame, pd.Series]
-) -> List:
+def get_series_codes(code_input: Union[int, List, Tuple, pd.DataFrame, pd.Series]) -> List:
 
     if isinstance(code_input, int):
         codes = [code_input]

@@ -18,9 +18,9 @@ def test_search_by_code_english():
     results = search_ts(code, Language.en.value)
     print(results)
     metadata = results[0]
-    assert metadata["name"] == "BM&F Gold - gramme"
-    assert metadata["first_value"] == to_datetime_string("29/12/1989", "en")
-    assert metadata["frequency"] == "D"
+    assert metadata['name'] == "BM&F Gold - gramme"
+    assert metadata['first_value'] == to_datetime_string("29/12/1989", "en")
+    assert metadata['frequency'] == "D"
 
 
 @pytest.mark.search
@@ -28,9 +28,9 @@ def test_search_by_code_portuguese():
     code = 4
     results = search_ts(code, Language.pt.value)
     metadata = results[0]
-    assert metadata["name"] == "Ouro BM&F - grama"
-    assert metadata["first_value"] == to_datetime_string("29/12/1989", "pt")
-    assert metadata["frequency"] == "D"
+    assert metadata['name'] == "Ouro BM&F - grama"
+    assert metadata['first_value'] == to_datetime_string("29/12/1989", "pt")
+    assert metadata['frequency'] == "D"
 
 
 @pytest.mark.search
