@@ -2,7 +2,8 @@ import pytest
 import requests
 
 from sgs.search import *
-from sgs.common import to_datetime
+from sgs.common import to_datetime, to_datetime_string
+
 
 @pytest.mark.search
 @pytest.mark.parametrize("language", ["en", "pt"])
@@ -17,9 +18,9 @@ def test_search_by_code_english():
     results = search_ts(code, Language.en.value)
     print(results)
     metadata = results[0]
-    assert metadata['name'] == "BM&F Gold - gramme"
-    assert metadata['first_value'] == to_datetime("29/12/1989", "en")
-    assert metadata['frequency'] == "D"
+    assert metadata["name"] == "BM&F Gold - gramme"
+    assert metadata["first_value"] == to_datetime_string("29/12/1989", "en")
+    assert metadata["frequency"] == "D"
 
 
 @pytest.mark.search
@@ -27,9 +28,9 @@ def test_search_by_code_portuguese():
     code = 4
     results = search_ts(code, Language.pt.value)
     metadata = results[0]
-    assert metadata['name'] == "Ouro BM&F - grama"
-    assert metadata['first_value'] == to_datetime("29/12/1989", "pt")
-    assert metadata['frequency'] == "D"
+    assert metadata["name"] == "Ouro BM&F - grama"
+    assert metadata["first_value"] == to_datetime_string("29/12/1989", "pt")
+    assert metadata["frequency"] == "D"
 
 
 @pytest.mark.search
@@ -41,7 +42,7 @@ def test_search_by_code_portuguese():
             "pt",
             {
                 "name": "Ouro BM&F - grama",
-                "first_value": to_datetime("29/12/1989", "pt"),
+                "first_value": to_datetime_string("29/12/1989", "pt"),
                 "freq": "D",
             },
         ),
@@ -50,7 +51,7 @@ def test_search_by_code_portuguese():
             "en",
             {
                 "name": "BM&F Gold - gramme",
-                "first_value": to_datetime("29/12/1989", "en"),
+                "first_value": to_datetime_string("29/12/1989", "en"),
                 "freq": "D",
             },
         ),
@@ -62,7 +63,7 @@ def test_search_by_code_portuguese():
                     "Saldo de títulos de dívida emitidos por "
                     "empresas e famílias - títulos privados"
                 ),
-                "first_value": to_datetime("01/01/2013", "pt"),
+                "first_value": to_datetime_string("01/01/2013", "pt"),
                 "freq": "M",
             },
         ),
@@ -74,8 +75,7 @@ def test_search_by_code(query, language, expected):
     results = results[0]
     assert results["frequency"] == expected["freq"]
     assert results["name"] == expected["name"]
-    first_value = expected["first_value"]
-    assert results["first_value"] == first_value
+    assert results["first_value"] == expected["first_value"]
 
 
 @pytest.mark.search

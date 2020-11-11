@@ -6,7 +6,7 @@ import requests
 from retrying import retry
 import pandas as pd
 
-from .common import LRU_CACHE_SIZE, MAX_ATTEMPT_NUMBER, to_datetime
+from .common import LRU_CACHE_SIZE, MAX_ATTEMPT_NUMBER, to_datetime_string
 
 
 @unique
@@ -77,9 +77,11 @@ def parse_search_response(response, language: str) -> Optional[list]:
     LAST = cols["last"]
 
     try:
-        df = pd.read_html(HTML, attrs={"id": "tabelaSeries"}, flavor="html5lib", skiprows=1)[0]
-        df[START] = df[START].map(lambda x: to_datetime(str(x), language))
-        df[LAST] = df[LAST].map(lambda x: to_datetime(str(x), language))
+        df = pd.read_html(
+            HTML, attrs={"id": "tabelaSeries"}, flavor="html5lib", skiprows=1
+        )[0]
+        df[START] = df[START].map(lambda x: to_datetime_string(str(x), language))
+        df[LAST] = df[LAST].map(lambda x: to_datetime_string(str(x), language))
         col_names = {
             cols["code"]: "code",
             cols["name"]: "name",
