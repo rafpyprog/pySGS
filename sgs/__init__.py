@@ -12,3 +12,4 @@ from .dataframe import dataframe
 from .ts import time_serie
 from .metadata import metadata
 from .search import search_ts
+from .common import apply_strict_range
