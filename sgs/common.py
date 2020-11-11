@@ -2,7 +2,7 @@
 Shared functions.
 """
 from datetime import datetime
-from typing import Union
+from typing import Union, List, Tuple
 import locale
 import pandas as pd
 import os
@@ -54,10 +54,18 @@ def apply_strict_range(
     data: Union[pd.DataFrame, pd.Series], start: str, end: str
 ) -> Union[pd.DataFrame, pd.Series]:
 
-    if isinstance(data, pd.Series):
-        codes = [data.name]
-    else:
-        codes = data.columns
+    """
+    SGS API default behaviour returns the last stored value when selected date range have no data.
+
+    This function enforces the date range selected by user.
+
+    :param data: time_serie or dataframe to be filtered.
+    :param start: start date (DD/MM/YYYY).
+    :param end: end date (DD/MM/YYYY).
+
+    :return: time_serie or dataframe
+    :rtype: pd.Series or pd.DataFrame
+    """
 
     try:
         enforce_start = to_datetime(start, "pt")
@@ -65,14 +73,32 @@ def apply_strict_range(
         strict_data = data[data.index.to_series().between(enforce_start, enforce_end)]
     except ValueError:
         strict_data = data.drop(data.index)
-        for ts_code in codes:
+        for ts_code in get_series_codes(data):
             print(
                 "ERROR: Serie %s - use 'DD/MM/YYYY' format for date strings." % ts_code
             )
     if not data.empty and strict_data.empty:
-        for ts_code in codes:
+        for ts_code in get_series_codes(data):
             print(
                 "WARNING: Serie %s - There is no data for the requested period."
                 % ts_code
             )
     return strict_data
+
+
+def get_series_codes(
+    code_input: Union[int, List, Tuple, pd.DataFrame, pd.Series]
+) -> List:
+
+    if isinstance(code_input, int):
+        codes = list(code_input)
+    elif isinstance(code_input, pd.Series):
+        codes = list(code_input.name)
+    elif isinstance(code_input, pd.DataFrame):
+        codes = list(code_input.columns)
+    elif isinstance(code_input, tuple):
+        codes = list(code_input)
+    else:
+        codes = code_input
+
+    return codes
