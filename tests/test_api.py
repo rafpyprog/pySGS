@@ -1,7 +1,6 @@
 import pytest
 
 from sgs import api
-import pandas as pd
 
 
 @pytest.mark.api

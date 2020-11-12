@@ -6,7 +6,8 @@ import numpy as np
 import pandas as pd
 
 from . import api
-from .common import to_datetime, apply_strict_range
+from .strict import apply_strict_range
+from .common import to_datetime
 
 
 def time_serie(ts_code: int, start: str, end: str, strict: bool = False) -> pd.Series:
