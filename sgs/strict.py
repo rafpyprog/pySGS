@@ -1,9 +1,9 @@
 import pandas as pd
-from typing import Union
+from typing import Union, Optional
 from .common import to_datetime, get_series_codes
 
 
-def apply_strict_range(data: Union[pd.DataFrame, pd.Series], start: str, end: str) -> Union[pd.DataFrame, pd.Series]:
+def constrain(data: Union[pd.DataFrame, pd.Series], start: str, end: Optional[str] = None) -> Union[pd.DataFrame, pd.Series]:
 
     """
     SGS API default behaviour returns the last stored value when selected date range have no data.
@@ -17,6 +17,9 @@ def apply_strict_range(data: Union[pd.DataFrame, pd.Series], start: str, end: st
     :return: time_serie or dataframe
     :rtype: pd.Series or pd.DataFrame
     """
+    
+    if end is None:
+        end = start
 
     try:
         enforce_start = to_datetime(start, "pt")

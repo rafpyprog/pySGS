@@ -5,12 +5,13 @@ Time Serie manipulation
 import numpy as np
 import pandas as pd
 
+from typing import Optional
 from . import api
-from .strict import apply_strict_range
+from .strict import constrain
 from .common import to_datetime
 
 
-def time_serie(ts_code: int, start: str, end: str, strict: bool = False) -> pd.Series:
+def time_serie(ts_code: int, start: str, end: Optional[str] = None, strict: bool = False) -> pd.Series:
     """
     Request a time serie data.
 
@@ -46,6 +47,6 @@ def time_serie(ts_code: int, start: str, end: str, strict: bool = False) -> pd.S
     ts = pd.Series(values, index, name=ts_code, dtype=np.float)
 
     if strict:
-        ts = apply_strict_range(ts, start, end)
+        ts = constrain(ts, start, end)
 
     return ts

@@ -13,7 +13,9 @@ def get_data(ts_code: int, begin: str, end: str) -> List:
     """
     Requests time series data from the SGS API in json format.
     """
-
+    if end is None:
+        end = begin
+        
     url = (
         "http://api.bcb.gov.br/dados/serie/bcdata.sgs.{}"
         "/dados?formato=json&dataInicial={}&dataFinal={}"

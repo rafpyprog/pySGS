@@ -1,7 +1,7 @@
 """
 Dataframe
 """
-from typing import Dict, List, Tuple, Union
+from typing import Dict, List, Tuple, Union, Optional
 
 import pandas as pd
 
@@ -11,7 +11,7 @@ from .ts import time_serie
 from .common import get_series_codes
 
 
-def dataframe(ts_codes: Union[int, List, Tuple], start: str, end: str, strict: bool = False) -> pd.DataFrame:
+def dataframe(ts_codes: Union[int, List, Tuple], start: str, end: Optional[str] = None, strict: bool = False) -> pd.DataFrame:
     """
     Creates a dataframe from a list of time serie codes.
 
