@@ -17,9 +17,8 @@ def constrain(data: Union[pd.DataFrame, pd.Series], start: str, end: Optional[st
     :return: time_serie or dataframe
     :rtype: pd.Series or pd.DataFrame
     """
-    
-    if end is None:
-        end = start
+
+    end = start if end is None else end
 
     try:
         enforce_start = to_datetime(start, "pt")
