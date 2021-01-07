@@ -8,6 +8,17 @@ from sgs import dataframe, time_serie
 def test_metadata_returns_list_with_int_as_parameter():
     assert isinstance(metadata(4), list)
 
+@pytest.mark.metadata
+def test_metadata_returns_list_with_list_as_parameter():
+    meta = metadata([4,12])
+    assert isinstance(meta, list)
+    assert len(meta) == 2
+
+@pytest.mark.metadata
+def test_metadata_returns_list_with_tuple_as_parameter():
+    meta = metadata((4,12))
+    assert isinstance(meta, list)
+    assert len(meta) == 2
 
 @pytest.mark.metadata
 def test_metadata_returns_list_with_df_as_parameter():

@@ -25,7 +25,7 @@ def constrain(data: Union[pd.DataFrame, pd.Series], start: str, end: Optional[st
         enforce_end = to_datetime(end, "pt")
         strict_data = data[data.index.to_series().between(enforce_start, enforce_end)]
         if strict_data.empty or data.empty:
-            RuntimeError
+            raise RuntimeError
     except ValueError:
         strict_data = data.drop(data.index)
         print("ERROR: Please, use 'DD/MM/YYYY' format for date strings.")
