@@ -1,11 +1,10 @@
-from typing import Optional, Dict, List, Union
-
 import pandas as pd
-
+from typing import List, Tuple, Union
 from .search import search_ts
+from .common import get_series_codes
 
 
-def metadata(ts_code: Union[int, pd.DataFrame], language: str = "en") -> Optional[List]:
+def metadata(ts_code: Union[int, List, Tuple, pd.DataFrame, pd.Series], language: str = "en") -> List:
     """Request metadata about a time serie or all time series in a pandas dataframe.
 
     :param ts_code: time serie code or pandas dataframe with time series as columns.
@@ -27,14 +26,11 @@ def metadata(ts_code: Union[int, pd.DataFrame], language: str = "en") -> Optiona
         'last_value': Timestamp('2019-05-01 00:00:00'), 'source': 'FGV'}]
     """
     info = []
-    if isinstance(ts_code, pd.core.frame.DataFrame):
-        for col in ts_code.columns:
-            col_info = search_ts(col, language)
-            if col_info is not None:
-                info.append(col_info[0])
-            else:
-                info.append(None)
-    else:
-        col_info = search_ts(ts_code, language)
-        info.append(col_info)
+    for ts in get_series_codes(ts_code):
+        try:
+            metadata = search_ts(ts, language)
+            info.extend(metadata)
+        except NameError:
+            info.append(None)
+
     return info

@@ -1,17 +1,17 @@
 """
 Time Serie manipulation
 """
-from typing import Dict, List, Optional
 
 import numpy as np
 import pandas as pd
 
+from typing import Optional
 from . import api
-from . import search
+from .strict import constrain
 from .common import to_datetime
 
 
-def time_serie(ts_code: int, start: str, end: str, strict: bool = False) -> pd.Series:
+def time_serie(ts_code: int, start: str, end: Optional[str] = None, strict: bool = False) -> pd.Series:
     """
     Request a time serie data.
 
@@ -34,18 +34,19 @@ def time_serie(ts_code: int, start: str, end: str, strict: bool = False) -> pd.S
         2018-01-05    0.026444
         2018-01-08    0.026444
     """
-    
-    if strict:
-        ts_data = api.get_data_with_strict_range(ts_code, start, end)
-    else:
-        ts_data = api.get_data(ts_code, start, end)
-        
+
     values = []
     index = []
-    for i in ts_data:
+    for i in api.get_data(ts_code, start, end):
         values.append(i["valor"])
         index.append(to_datetime(i["data"], "pt"))
 
     # Transform empty strings in null values
     values = [np.nan if value == "" else value for value in values]
-    return pd.Series(values, index, name=ts_code, dtype=np.float)
+
+    ts = pd.Series(values, index, name=ts_code, dtype=np.float)
+
+    if strict:
+        ts = constrain(ts, start, end)
+
+    return ts

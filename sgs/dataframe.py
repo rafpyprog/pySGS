@@ -1,16 +1,17 @@
 """
 Dataframe
 """
-from typing import Dict, List, Tuple, Union
+from typing import Dict, List, Tuple, Union, Optional
 
 import pandas as pd
 
 from . import api
 from . import search
 from .ts import time_serie
+from .common import get_series_codes
 
 
-def dataframe(ts_codes: Union[int, List, Tuple], start: str, end: str, strict: bool = False) -> pd.DataFrame:
+def dataframe(ts_codes: Union[int, List, Tuple], start: str, end: Optional[str] = None, strict: bool = False) -> pd.DataFrame:
     """
     Creates a dataframe from a list of time serie codes.
 
@@ -36,11 +37,9 @@ def dataframe(ts_codes: Union[int, List, Tuple], start: str, end: str, strict: b
         2018-01-05  0.026444   NaN
 
     """
-    if isinstance(ts_codes, int):
-        ts_codes = [ts_codes]
 
     series = []
-    for code in ts_codes:
+    for code in get_series_codes(ts_codes):
         ts = time_serie(code, start, end, strict)
         series.append(ts)
 
