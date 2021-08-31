@@ -13,7 +13,7 @@ LRU_CACHE_SIZE = 32
 MAX_ATTEMPT_NUMBER = 5
 
 
-@functools.lru_cache(maxsize=LRU_CACHE_SIZE)
+@functools.lru_cache(maxsize=365)
 def to_datetime(date_string: str, language: str) -> Union[datetime, str]:
     """ Converts a date string to a datetime object """
 
