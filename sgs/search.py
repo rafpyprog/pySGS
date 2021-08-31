@@ -90,7 +90,7 @@ def parse_search_response(response, language: str) -> Optional[list]:
             cols["source"]: "source",
         }
         df.rename(columns=col_names, inplace=True)
-        cols = [
+        cols_names = [
             "code",
             "name",
             "unit",
@@ -99,7 +99,7 @@ def parse_search_response(response, language: str) -> Optional[list]:
             "last_value",
             "source",
         ]  # type: ignore
-        df = df[cols]
+        df = df[cols_names]
     except (IndexError, KeyError):
         return None
     else:

@@ -1,7 +1,7 @@
 from setuptools import setup
 
 
-__version__ = '2.1.0'
+__version__ = "2.1.1"
 
 
 with open('README.rst', 'r', encoding='utf-8') as f:
@@ -19,9 +19,11 @@ requirements = [
 dev_requirements = [
     "bandit==1.6.0",
     "codecov==2.0.15",
+    "mypy==0.910",
     "pytest==4.6.2",
     "pytest-cov==2.7.1",
-    "pytest-mypy>=0.3.2"
+    "pytest-mypy>=0.8.1",
+    "types-requests>=2.25.6"
 ]
 
 setup(
