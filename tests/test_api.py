@@ -10,7 +10,8 @@ def test_get_data():
     data = api.get_data(4, "02/01/2018", "31/01/2018")
     assert isinstance(data, list)
     assert len(data) == NUMBER_OF_LINES
-    
+
+
 @pytest.mark.api
 def test_get_data_with_strict_range():
     NUMBER_OF_LINES = 0

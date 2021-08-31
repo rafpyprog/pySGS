@@ -90,7 +90,7 @@ def parse_search_response(response, language: str) -> Optional[list]:
             cols["source"]: "source",
         }
         df.rename(columns=col_names, inplace=True)
-        cols = [
+        cols_names = [
             "code",
             "name",
             "unit",
@@ -98,8 +98,8 @@ def parse_search_response(response, language: str) -> Optional[list]:
             "first_value",
             "last_value",
             "source",
-        ]
-        df = df[cols]
+        ]  # type: ignore
+        df = df[cols_names]
     except (IndexError, KeyError):
         return None
     else:
@@ -170,7 +170,7 @@ def search_ts(query: Union[int, str], language: str) -> Optional[list]:
         params["texto"] = query
         params["hdTipoPesquisa"] = 6
 
-    response = session.post(url, params=params, timeout=10)
+    response = session.post(url, params=params, timeout=10)  # type: ignore
     response.raise_for_status()
 
     results = parse_search_response(response, language)
