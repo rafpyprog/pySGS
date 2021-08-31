@@ -98,7 +98,7 @@ def parse_search_response(response, language: str) -> Optional[list]:
             "first_value",
             "last_value",
             "source",
-        ]
+        ]  # type: ignore
         df = df[cols]
     except (IndexError, KeyError):
         return None
@@ -170,7 +170,7 @@ def search_ts(query: Union[int, str], language: str) -> Optional[list]:
         params["texto"] = query
         params["hdTipoPesquisa"] = 6
 
-    response = session.post(url, params=params, timeout=10)
+    response = session.post(url, params=params, timeout=10)  # type: ignore
     response.raise_for_status()
 
     results = parse_search_response(response, language)
