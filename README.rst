@@ -10,8 +10,8 @@
 .. image:: https://img.shields.io/pypi/dm/sgs.svg
     :target: https://pypi.org/project/sgs/
 
-.. image:: https://img.shields.io/travis/rafpyprog/pysgs.svg
-    :target: https://travis-ci.org/rafpyprog/pySGS/
+.. image:: https://github.com/rafpyprog/pySGS/actions/workflows/tests.yml/badge.svg
+    :target: https://github.com/rafpyprog/pySGS/actions/workflows/tests.yml
 
 .. image:: https://img.shields.io/codecov/c/github/rafpyprog/pysgs.svg
     :target: https://codecov.io/github/rafpyprog/pysgs
