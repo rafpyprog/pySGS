@@ -77,7 +77,7 @@ Let’s perform a search for time series with data about gold.
 * English
 
     >>> results = sgs.search_ts("gold", language="en")
-    >>> print(len(results)
+    >>> print(len(results))
     29
     >>> results[0]
     {'code': 4, 'name': 'BM&F Gold - gramme', 'unit': 'c.m.u.',
@@ -87,7 +87,7 @@ Let’s perform a search for time series with data about gold.
 * Portuguese
 
     >>> results = sgs.search_ts("ouro", language="pt")
-    >>> print(len(results)
+    >>> print(len(results))
     29
     >>> results[0]
     {'code': 4, 'name': 'Ouro BM&F - grama', 'unit': 'u.m.c.',
