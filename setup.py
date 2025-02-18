@@ -18,7 +18,7 @@ requirements = [
 
 dev_requirements = [
     "bandit==1.6.0",
-    "codecov==2.0.15",
+    "codecov==2.1.13",
     "mypy==0.910",
     "pytest==4.6.2",
     "pytest-cov==2.7.1",
