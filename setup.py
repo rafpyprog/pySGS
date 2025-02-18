@@ -10,7 +10,7 @@ with open('README.rst', 'r', encoding='utf-8') as f:
 
 requirements = [
     'beautifulsoup4>=4.7.1',
-    'html5lib>=1.0.1',
+    'lxml>=5.3.1, <6.0.0',
     'pandas>=0.24.2',
     'retrying>=1.3.3',
     'requests>=2.22.0',
