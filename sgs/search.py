@@ -71,15 +71,14 @@ def init_search_session(language: str) -> requests.Session:
 
 
 def parse_search_response(response, language: str) -> Optional[list]:
+    not_found_msgs = ("No series found", "Nenhuma série localizada")
+    if any(msg in response.text for msg in not_found_msgs):
+        return None
+        
     if sys_version <= (3, 8):
         HTML = response.text
     else:
-        HTML = StringIO(response.text)
-        
-
-    not_found_msgs = ("No series found", "Nenhuma série localizada")
-    if any(msg in HTML for msg in not_found_msgs):
-        return None
+        HTML = StringIO(response.text)    
 
     cols = Columns[language].value
     START = cols["start"]
