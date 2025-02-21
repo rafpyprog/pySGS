@@ -75,7 +75,7 @@ def parse_search_response(response, language: str) -> Optional[list]:
     if any(msg in response.text for msg in not_found_msgs):
         return None
         
-    if sys_version <= (3, 8):
+    if SYS_VERSION <= (3, 8):
         HTML = response.text
     else:
         HTML = StringIO(response.text)    
