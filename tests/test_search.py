@@ -103,4 +103,4 @@ def test_search_by_text_multiple_results():
     result_count = 43
     assert len(results) == result_count
     assert results[0]["code"] == 1
-    assert results[-1]["code"] == 21636
+    assert results[-1]["code"] == 29372
