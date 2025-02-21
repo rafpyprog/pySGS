@@ -16,6 +16,7 @@ requirements = [
     'requests>=2.22.0',
 ]
 
+
 dev_requirements = [
     "bandit==1.6.0",
     "codecov==2.0.15",
