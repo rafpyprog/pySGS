@@ -10,7 +10,7 @@ with open('README.rst', 'r', encoding='utf-8') as f:
 
 
 requirements = [
-    'beautifulsoup4==4.9.3' if sys.version_info[:2] == (3, 8) else 'beautifulsoup4>=4.9.3',
+    'beautifulsoup4>=4.11.0' if sys.version_info[:2] == (3, 8) else 'beautifulsoup4>=4.9.3',
     'html5lib>=1.0.1',
     'lxml>=5.3.1',
     'pandas>=0.24.2,<2.0.0' if sys.version_info[:2] == (3, 8) else 'pandas>=0.24.2',
