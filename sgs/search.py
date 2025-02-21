@@ -1,5 +1,7 @@
-from enum import Enum, unique
 import functools
+import sys
+from io import StringIO
+from enum import Enum, unique
 from typing import Union, Optional
 
 import requests
@@ -7,6 +9,9 @@ from retrying import retry
 import pandas as pd
 
 from .common import LRU_CACHE_SIZE, MAX_ATTEMPT_NUMBER, to_datetime
+
+
+SYS_VERSION = sys.version_info[:2]
 
 
 @unique
@@ -66,7 +71,11 @@ def init_search_session(language: str) -> requests.Session:
 
 
 def parse_search_response(response, language: str) -> Optional[list]:
-    HTML = response.text
+    if sys_version <= (3, 8):
+        HTML = response.text
+    else:
+        HTML = StringIO(response.text)
+        
 
     not_found_msgs = ("No series found", "Nenhuma série localizada")
     if any(msg in HTML for msg in not_found_msgs):
