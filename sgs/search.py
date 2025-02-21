@@ -86,9 +86,9 @@ def parse_search_response(response, language: str) -> Optional[list]:
 
     try:
         try:
-            df = pd.read_html(HTML, attrs={"id": "tabelaSeries"}, flavor="html5lib", skiprows=1)[0]
+            df = pd.read_html(HTML, attrs={"id": "tabelaSeries"}, flavor="html5lib", skiprows=1)[0]   # type: ignore
         except AttributeError:
-            df = pd.read_html(HTML, attrs={"id": "tabelaSeries"}, flavor="lxml", skiprows=1)[0]
+            df = pd.read_html(HTML, attrs={"id": "tabelaSeries"}, flavor="lxml", skiprows=1)[0]   # type: ignore
 
         df[START] = df[START].map(lambda x: to_datetime(str(x), language))
         df[LAST] = df[LAST].map(lambda x: to_datetime(str(x), language))
