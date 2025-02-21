@@ -12,7 +12,7 @@ requirements = [
     'beautifulsoup4>=4.7.1',
     'html5lib>=1.0.1',
     'lxml>=5.3.1',
-    'pandas>=0.24.2',
+    'pandas>=0.24.2,<2.0.0' if sys.version_info[:2] == (3, 8) else 'pandas>=0.24.2',
     'retrying>=1.3.3',
     'requests>=2.22.0',
 ]
