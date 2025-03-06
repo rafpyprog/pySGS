@@ -16,7 +16,7 @@ def get_data(ts_code: int, begin: str, end: str) -> List:
     """
 
     url = (
-        "http://api.bcb.gov.br/dados/serie/bcdata.sgs.{}"
+        "https://api.bcb.gov.br/dados/serie/bcdata.sgs.{}"
         "/dados?formato=json&dataInicial={}&dataFinal={}"
     )
     request_url = url.format(ts_code, begin, end)
