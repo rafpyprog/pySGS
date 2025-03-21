@@ -21,7 +21,7 @@ dev_requirements = [
     "codecov==2.0.15",
     "mypy==0.910",
     "pytest==4.6.2",
-    "pytest-cov==2.7.1",
+    "pytest-cov>=2.7.1",
     "pytest-mypy>=0.8.1",
     "types-requests>=2.25.6"
 ]
