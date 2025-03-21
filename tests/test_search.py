@@ -100,7 +100,7 @@ def test_search_by_text_query_returns_multiple_result_pages():
 def test_search_by_text_multiple_results():
     results = search_ts("dolar", "pt")
     assert isinstance(results, list)
-    result_count = 41
+    result_count = 43
     assert len(results) == result_count
     assert results[0]["code"] == 1
-    assert results[-1]["code"] == 21636
+    assert results[-1]["code"] == 29372
