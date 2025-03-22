@@ -31,7 +31,7 @@ Introduction
 
 This library provides a pure Python interface for the Brazilian Central Bank's
 `Time Series Management System (SGS) <https://www.bcb.gov.br/?sgs>`_  api.
-It works with Python 3.5 and above.
+It works with Python 3.9 and above.
 
 SGS is a service with more than 18,000 time series with economical and financial information.
 This library is intended to make it easier for Python programmers to use this data in projects of
